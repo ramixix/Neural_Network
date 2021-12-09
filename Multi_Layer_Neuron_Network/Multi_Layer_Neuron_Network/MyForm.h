@@ -25,6 +25,7 @@ namespace MultiLayerNeuronNetwork {
 			this->class_id_combo_box->Enabled = false;
 			this->hidden_layers_num_combo_box->Enabled = false;
 			this->hidden_neurons_num_combo_box->Enabled = false;
+			this->set_button->ForeColor = Color::Red;
 		}
 
 	protected:
@@ -144,8 +145,8 @@ namespace MultiLayerNeuronNetwork {
 			this->Coordinate_plane_PictureBox->Size = System::Drawing::Size(800, 600);
 			this->Coordinate_plane_PictureBox->TabIndex = 3;
 			this->Coordinate_plane_PictureBox->TabStop = false;
-			this->Coordinate_plane_PictureBox->Click += gcnew System::EventHandler(this, &MyForm::Coordinate_plane_PictureBox_Click);
 			this->Coordinate_plane_PictureBox->Paint += gcnew System::Windows::Forms::PaintEventHandler(this, &MyForm::Coordinate_plane_PictureBox_Paint);
+			this->Coordinate_plane_PictureBox->MouseClick += gcnew System::Windows::Forms::MouseEventHandler(this, &MyForm::Coordinate_plane_PictureBox_MouseClick);
 			// 
 			// menuStrip1
 			// 
@@ -287,6 +288,7 @@ namespace MultiLayerNeuronNetwork {
 			this->clear_lines->TabIndex = 7;
 			this->clear_lines->Text = L"Clear Lines";
 			this->clear_lines->UseVisualStyleBackColor = true;
+			this->clear_lines->Click += gcnew System::EventHandler(this, &MyForm::clear_lines_Click);
 			// 
 			// clear_all
 			// 
@@ -298,6 +300,7 @@ namespace MultiLayerNeuronNetwork {
 			this->clear_all->TabIndex = 6;
 			this->clear_all->Text = L"Clear All";
 			this->clear_all->UseVisualStyleBackColor = true;
+			this->clear_all->Click += gcnew System::EventHandler(this, &MyForm::clear_all_Click);
 			// 
 			// class_id_combo_box
 			// 
@@ -529,8 +532,9 @@ namespace MultiLayerNeuronNetwork {
 	private: System::Void set_button_Click(System::Object^ sender, System::EventArgs^ e) {
 		// users only can choose number of classes between 2-9 inside combo box and if they enter anything else we give them a message to select number form combobox
 		if (!check_combobox_selection((char)(Convert::ToChar(total_classNum_combo_box->Text))))
-			MessageBox::Show("Setting the total number of classes by choosing an option from the combo box.");
+			MessageBox::Show("[Warning] you need to set the settings. (Click on set button)");
 		else {
+			set_button->ForeColor = Color::Blue;
 			class_id_combo_box->Enabled = true;
 			total_class_number = Convert::ToInt16(total_classNum_combo_box->Text);
 			number_of_hidden_layers = Convert::ToInt16(hidden_layers_num_combo_box->Text);
@@ -557,6 +561,8 @@ namespace MultiLayerNeuronNetwork {
 		hidden_neurons_num_combo_box->Enabled = true;
 		hidden_neurons_num_combo_box->SelectedIndex = 0;
 
+		set_button->ForeColor = Color::Red;
+
 		switch (selected_num) {
 		case 2: items_number = 2; break;
 		case 3: items_number = 3; break;
@@ -582,16 +588,18 @@ namespace MultiLayerNeuronNetwork {
 
 //##############################################################################################################################################################################################################
 
-	private: System::Void Coordinate_plane_PictureBox_Click(System::Object^ sender, System::EventArgs^ e) {
-		int x1_coordinate = Convert::ToInt32(e->X);
-		int x2_coordinate = Convert::ToInt32(e->Y);
+	private: System::Void Coordinate_plane_PictureBox_MouseClick(System::Object^ sender, System::Windows::Forms::MouseEventArgs^ e) {
+		if (set_button->ForeColor == Color::Blue) {
 
-		double transferred_x1 = (double)(x1_coordinate - (Coordinate_plane_PictureBox->Width / 2));
-		double transferred_x2 = (double)((Coordinate_plane_PictureBox->Height / 2) - x2_coordinate);
 
-		int class_id;
-		// check if user already set total class number
-		if (class_id_combo_box->Enabled == true) {
+			int x1_coordinate = Convert::ToInt32(e->X);
+			int x2_coordinate = Convert::ToInt32(e->Y);
+
+			double transferred_x1 = (double)(x1_coordinate - (Coordinate_plane_PictureBox->Width / 2));
+			double transferred_x2 = (double)((Coordinate_plane_PictureBox->Height / 2) - x2_coordinate);
+
+			int class_id;
+			// check if user already set total class number
 			class_id = class_id_combo_box->SelectedIndex;
 
 			//chech if the point is the first point ever added
@@ -629,11 +637,54 @@ namespace MultiLayerNeuronNetwork {
 			total_sample_label->Text = Convert::ToString(total_points);
 			x1_label->Text = Convert::ToString(transferred_x1);
 			x2_label->Text = Convert::ToString(transferred_x2);
-
-
+			
 		}
 		else {
-			MessageBox::Show("You need to first specify total class number then you can add sample for desired class id.");
+			MessageBox::Show("You've change the settings but forget to click on Set button.");
+		}
+	}
+
+//##############################################################################################################################################################################################################
+
+	// deleting all lines (we actually clean coordinate plane by deleting all the lines and points and then draw points again)
+	// this is not going to give you a good output if you ran the delta learning before because all the points are normalized, and when you redraw the points, the points will be so close together
+	private: System::Void clear_lines_Click(System::Object^ sender, System::EventArgs^ e) {
+		Coordinate_plane_PictureBox->Refresh();
+
+		for (int i = 0; i < total_points; i++) {
+			int pure_x = points[i].x_coordinates[0] + (Coordinate_plane_PictureBox->Width / 2);
+			int pure_y = (Coordinate_plane_PictureBox->Height / 2) - points[i].x_coordinates[1];
+
+			Pen^ pen;
+			switch (points[i].class_id) {
+			case 0: pen = gcnew Pen(Color::Red, 3.0f); break;
+			case 1: pen = gcnew Pen(Color::Green, 3.0f); break;
+			case 2: pen = gcnew Pen(Color::Blue, 3.0f); break;
+			case 3: pen = gcnew Pen(Color::Yellow, 3.0f); break;
+			case 4: pen = gcnew Pen(Color::Pink, 3.0f); break;
+			case 5: pen = gcnew Pen(Color::Orange, 3.0f); break;
+			case 6: pen = gcnew Pen(Color::Aqua, 3.0f); break;
+			case 7: pen = gcnew Pen(Color::Brown, 3.0f); break;
+			case 8: pen = gcnew Pen(Color::Purple, 3.0f); break;
+			default: pen = gcnew Pen(Color::Black, 3.0f);
+			}
+
+			Coordinate_plane_PictureBox->CreateGraphics()->DrawLine(pen, pure_x - 5, pure_y, pure_x + 5, pure_y);
+			Coordinate_plane_PictureBox->CreateGraphics()->DrawLine(pen, pure_x, pure_y - 5, pure_x, pure_y + 5);
+
+		}
+	}
+
+
+//##############################################################################################################################################################################################################
+
+	// clear coordinate plane by deleting all the lines and points 
+	private: System::Void clear_all_Click(System::Object^ sender, System::EventArgs^ e) {
+		Coordinate_plane_PictureBox->Refresh();
+		total_points = 0;
+		if(points != NULL){
+			delete[]points;
+			points = NULL;
 		}
 	}
 };

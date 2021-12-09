@@ -1,4 +1,8 @@
 ﻿  MyForm.cpp
-D:\Neural_Network\Neural_Network\Multi_Layer_Neuron_Network\Multi_Layer_Neuron_Network\MyForm.cpp(7,33): warning C4829: Possibly incorrect parameters to function main. Consider 'int main(Platform::Array<Platform::String^>^ argv)'
+D:\Neural_Network\Neural_Network\Multi_Layer_Neuron_Network\Multi_Layer_Neuron_Network\MyForm.h(617,73): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
+D:\Neural_Network\Neural_Network\Multi_Layer_Neuron_Network\Multi_Layer_Neuron_Network\MyForm.h(617,57): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
+D:\Neural_Network\Neural_Network\Multi_Layer_Neuron_Network\Multi_Layer_Neuron_Network\MyForm.h(655,15): warning C4244: 'initializing': conversion from 'double' to 'int', possible loss of data
+D:\Neural_Network\Neural_Network\Multi_Layer_Neuron_Network\Multi_Layer_Neuron_Network\MyForm.h(656,15): warning C4244: 'initializing': conversion from 'double' to 'int', possible loss of data
+D:\Neural_Network\Neural_Network\Multi_Layer_Neuron_Network\Multi_Layer_Neuron_Network\MyForm.cpp(9,33): warning C4829: Possibly incorrect parameters to function main. Consider 'int main(Platform::Array<Platform::String^>^ argv)'
   MyForm.obj : MSIL module encountered; incremental linking is disabled for MSIL; performing full link
   Multi_Layer_Neuron_Network.vcxproj -> D:\Neural_Network\Neural_Network\Multi_Layer_Neuron_Network\Debug\Multi_Layer_Neuron_Network.exe
