@@ -123,11 +123,13 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="MyForm.cpp" />
+    <ClCompile Include="Utils.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="MyForm.h">
       <FileType>CppForm</FileType>
     </ClInclude>
+    <ClInclude Include="Utils.h" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="MyForm.resx">
