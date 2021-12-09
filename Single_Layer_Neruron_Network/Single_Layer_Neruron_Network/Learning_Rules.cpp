@@ -77,3 +77,74 @@ double sgn(double net) {
 
 
 //&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&
+
+
+double delta_learning(Sample point, double* weight_array, int dimension, int class_number) {
+	double* net_values = new double[class_number];;
+	double* output_values = new double[class_number];;
+	double bias = -1;
+	int lambda = 1;
+	double error;
+
+	delta_feed_forwared(point, weight_array, dimension, class_number, net_values, output_values, bias, lambda);
+	error = delta_back_propagation(point, weight_array, dimension, class_number, net_values, output_values, bias, lambda);
+	return error;
+	
+
+}
+
+//##############################################################################################################################################################################################################
+
+void delta_feed_forwared(Sample point, double* weight_array, int dimension, int class_number, double* net, double* output, double bias, int lambda){
+	for (int i = 0; i < class_number; i++) {
+		net[i] = 0;
+	}
+
+	for (int i = 0; i < class_number; i++) {
+		for (int j = 0; j < dimension; j++) {
+			net[i] += weight_array[j + i * (dimension + 1)] * point.x_coordinates[j];
+		}
+		net[i] += weight_array[i * (dimension + 1) + dimension] * bias;
+	}
+
+	for (int i = 0; i < class_number; i++) {
+		output[i] = sigmoid(net[i], lambda);
+	}
+}
+
+//##############################################################################################################################################################################################################
+
+double delta_back_propagation(Sample point, double* weight_array, int dimension, int class_number, double* net, double* output, double bias, int lambda) {
+	double desired_output;
+	double learning_constatn = 0.1f;
+
+	double error = 0;
+	for (int i = 0; i < class_number; i++) {
+		if (point.class_id == i)
+			desired_output = 1;
+		else
+			desired_output = -1;
+
+		// calculate error
+		error += 0.5 * pow(desired_output - output[i], 2);
+		// no matter what update the weights
+		for (int c = 0; c < dimension; c++) {
+			weight_array[i * (dimension + 1) + c] += (learning_constatn * (desired_output - output[i]) * sigmoidDerivative(net[i], lambda) * point.x_coordinates[c]);
+		}
+		weight_array[i * (dimension + 1) + dimension] += (learning_constatn * (desired_output - output[i]) * sigmoidDerivative(net[i], lambda) * bias);
+	}
+
+	return error;
+}
+
+//##############################################################################################################################################################################################################
+
+double sigmoid(double net, int lambda) {
+	return (2.0 / (1.0 + exp(lambda * (-net)))) - 1;
+}
+
+//##############################################################################################################################################################################################################
+
+double sigmoidDerivative(double net, int lambda) {
+	return 0.5 * (1 - pow(sigmoid(net, lambda), 2));
+}

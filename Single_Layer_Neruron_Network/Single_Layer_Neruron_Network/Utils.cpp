@@ -43,8 +43,8 @@ Sample* add_sample_to_points(Sample* points, int total_point, float x1, float x2
 
 // find x2 in equation w0*x1 + w1*x2 + w3 = 0
 // x2 = (-w3 - w0*x1) / w1
-int find_y_point(int x, double w[]) {
-	return (int)((double)(-1 * 1.0 * w[2] - w[0] * x) / (double)(w[1]));
+int find_y_point(int x, double w[], int constant) {
+	return (int)((double)(-1 * constant * w[2] - w[0] * x) / (double)(w[1]));
 }
 
 //#####################################################################################################################################
@@ -56,4 +56,36 @@ void set_random_value_to_array(double* array, int array_length) {
 		array[i] = (double)rand() / (double)RAND_MAX;
 	}
 
+}
+
+//#####################################################################################################################################
+
+void z_score_normalization(Sample* points, int total_point) {
+	double x1_mean = 0, x2_mean = 0;
+	double x1_standard_deviation = 0, x2_standard_deviation = 0;
+
+	for (int i = 0; i < total_point; i++) {
+		x1_mean += points[i].x_coordinates[0];
+		x2_mean += points[i].x_coordinates[1];
+	}
+
+	x1_mean /= total_point;
+	x2_mean /= total_point;
+
+	for (int i = 0; i < total_point; i++) {
+		x1_standard_deviation += pow((points[i].x_coordinates[0] - x1_mean), 2);
+		x2_standard_deviation += pow((points[i].x_coordinates[1] - x2_mean), 2);
+	}
+
+	x1_standard_deviation /= (total_point - 1);
+	x2_standard_deviation /= (total_point - 1);
+
+	x1_standard_deviation = sqrt(x1_standard_deviation);
+	x2_standard_deviation = sqrt(x2_standard_deviation);
+
+	for (int i = 0; i < total_point; i++) {
+		points[i].x_coordinates[0] = (points[i].x_coordinates[0] - x1_mean) / x1_standard_deviation;
+		points[i].x_coordinates[1] = (points[i].x_coordinates[1] - x2_mean) / x2_standard_deviation;
+
+	}
 }

@@ -90,6 +90,8 @@ namespace SingleLayerNeruronNetwork {
 			this->total_classNum_combo_box = (gcnew System::Windows::Forms::ComboBox());
 			this->label1 = (gcnew System::Windows::Forms::Label());
 			this->groupBox2 = (gcnew System::Windows::Forms::GroupBox());
+			this->cycle_count_label = (gcnew System::Windows::Forms::Label());
+			this->label7 = (gcnew System::Windows::Forms::Label());
 			this->x2_label = (gcnew System::Windows::Forms::Label());
 			this->x1_label = (gcnew System::Windows::Forms::Label());
 			this->label6 = (gcnew System::Windows::Forms::Label());
@@ -101,8 +103,6 @@ namespace SingleLayerNeruronNetwork {
 			this->learningProcessesToolStripMenuItem = (gcnew System::Windows::Forms::ToolStripMenuItem());
 			this->perceptronLearningBinaryFuncToolStripMenuItem = (gcnew System::Windows::Forms::ToolStripMenuItem());
 			this->deltaLearningContinuousFuncToolStripMenuItem = (gcnew System::Windows::Forms::ToolStripMenuItem());
-			this->label7 = (gcnew System::Windows::Forms::Label());
-			this->cycle_count_label = (gcnew System::Windows::Forms::Label());
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->Coordinate_plane_PictureBox))->BeginInit();
 			this->groupBox1->SuspendLayout();
 			this->groupBox2->SuspendLayout();
@@ -223,6 +223,28 @@ namespace SingleLayerNeruronNetwork {
 			this->groupBox2->TabStop = false;
 			this->groupBox2->Text = L"Information";
 			// 
+			// cycle_count_label
+			// 
+			this->cycle_count_label->AutoSize = true;
+			this->cycle_count_label->Font = (gcnew System::Drawing::Font(L"Arial", 8.25F, static_cast<System::Drawing::FontStyle>((System::Drawing::FontStyle::Bold | System::Drawing::FontStyle::Italic)),
+				System::Drawing::GraphicsUnit::Point, static_cast<System::Byte>(0)));
+			this->cycle_count_label->Location = System::Drawing::Point(232, 143);
+			this->cycle_count_label->Name = L"cycle_count_label";
+			this->cycle_count_label->Size = System::Drawing::Size(11, 13);
+			this->cycle_count_label->TabIndex = 12;
+			this->cycle_count_label->Text = L"-";
+			// 
+			// label7
+			// 
+			this->label7->AutoSize = true;
+			this->label7->Font = (gcnew System::Drawing::Font(L"Sitka Small", 8.25F, static_cast<System::Drawing::FontStyle>((System::Drawing::FontStyle::Bold | System::Drawing::FontStyle::Italic)),
+				System::Drawing::GraphicsUnit::Point, static_cast<System::Byte>(0)));
+			this->label7->Location = System::Drawing::Point(6, 140);
+			this->label7->Name = L"label7";
+			this->label7->Size = System::Drawing::Size(220, 16);
+			this->label7->TabIndex = 11;
+			this->label7->Text = L"Number of Cycles in Training Rules : ";
+			// 
 			// x2_label
 			// 
 			this->x2_label->AutoSize = true;
@@ -312,13 +334,13 @@ namespace SingleLayerNeruronNetwork {
 			// 
 			// learningProcessesToolStripMenuItem
 			// 
-			this->learningProcessesToolStripMenuItem->BackColor = System::Drawing::SystemColors::Control;
+			this->learningProcessesToolStripMenuItem->BackColor = System::Drawing::SystemColors::ControlLight;
 			this->learningProcessesToolStripMenuItem->DropDownItems->AddRange(gcnew cli::array< System::Windows::Forms::ToolStripItem^  >(2) {
 				this->perceptronLearningBinaryFuncToolStripMenuItem,
 					this->deltaLearningContinuousFuncToolStripMenuItem
 			});
-			this->learningProcessesToolStripMenuItem->Font = (gcnew System::Drawing::Font(L"Segoe UI", 9, System::Drawing::FontStyle::Bold, System::Drawing::GraphicsUnit::Point,
-				static_cast<System::Byte>(0)));
+			this->learningProcessesToolStripMenuItem->Font = (gcnew System::Drawing::Font(L"Segoe UI", 9, static_cast<System::Drawing::FontStyle>((System::Drawing::FontStyle::Bold | System::Drawing::FontStyle::Italic)),
+				System::Drawing::GraphicsUnit::Point, static_cast<System::Byte>(0)));
 			this->learningProcessesToolStripMenuItem->Name = L"learningProcessesToolStripMenuItem";
 			this->learningProcessesToolStripMenuItem->Size = System::Drawing::Size(124, 20);
 			this->learningProcessesToolStripMenuItem->Text = L"Learning Processes";
@@ -326,37 +348,16 @@ namespace SingleLayerNeruronNetwork {
 			// perceptronLearningBinaryFuncToolStripMenuItem
 			// 
 			this->perceptronLearningBinaryFuncToolStripMenuItem->Name = L"perceptronLearningBinaryFuncToolStripMenuItem";
-			this->perceptronLearningBinaryFuncToolStripMenuItem->Size = System::Drawing::Size(265, 22);
+			this->perceptronLearningBinaryFuncToolStripMenuItem->Size = System::Drawing::Size(267, 22);
 			this->perceptronLearningBinaryFuncToolStripMenuItem->Text = L"Perceptron Learning (Binary func.)";
 			this->perceptronLearningBinaryFuncToolStripMenuItem->Click += gcnew System::EventHandler(this, &MyForm::perceptronLearningBinaryFuncToolStripMenuItem_Click);
 			// 
 			// deltaLearningContinuousFuncToolStripMenuItem
 			// 
 			this->deltaLearningContinuousFuncToolStripMenuItem->Name = L"deltaLearningContinuousFuncToolStripMenuItem";
-			this->deltaLearningContinuousFuncToolStripMenuItem->Size = System::Drawing::Size(265, 22);
+			this->deltaLearningContinuousFuncToolStripMenuItem->Size = System::Drawing::Size(267, 22);
 			this->deltaLearningContinuousFuncToolStripMenuItem->Text = L"Delta Learning (Continuous func.)";
-			// 
-			// label7
-			// 
-			this->label7->AutoSize = true;
-			this->label7->Font = (gcnew System::Drawing::Font(L"Sitka Small", 8.25F, static_cast<System::Drawing::FontStyle>((System::Drawing::FontStyle::Bold | System::Drawing::FontStyle::Italic)),
-				System::Drawing::GraphicsUnit::Point, static_cast<System::Byte>(0)));
-			this->label7->Location = System::Drawing::Point(6, 140);
-			this->label7->Name = L"label7";
-			this->label7->Size = System::Drawing::Size(220, 16);
-			this->label7->TabIndex = 11;
-			this->label7->Text = L"Number of Cycles in Training Rules : ";
-			// 
-			// cycle_count_label
-			// 
-			this->cycle_count_label->AutoSize = true;
-			this->cycle_count_label->Font = (gcnew System::Drawing::Font(L"Arial", 8.25F, static_cast<System::Drawing::FontStyle>((System::Drawing::FontStyle::Bold | System::Drawing::FontStyle::Italic)),
-				System::Drawing::GraphicsUnit::Point, static_cast<System::Byte>(0)));
-			this->cycle_count_label->Location = System::Drawing::Point(232, 143);
-			this->cycle_count_label->Name = L"cycle_count_label";
-			this->cycle_count_label->Size = System::Drawing::Size(11, 13);
-			this->cycle_count_label->TabIndex = 12;
-			this->cycle_count_label->Text = L"-";
+			this->deltaLearningContinuousFuncToolStripMenuItem->Click += gcnew System::EventHandler(this, &MyForm::deltaLearningContinuousFuncToolStripMenuItem_Click);
 			// 
 			// MyForm
 			// 
@@ -479,6 +480,7 @@ namespace SingleLayerNeruronNetwork {
 //##############################################################################################################################################################################################################
 
 	// when user click on precetron learning from toolbar
+	// run for 100 000 cycle and send each point one by one and get error calculated for that point and if all the errors are equal to 1 then break from loop and draw the line(s)
 	private: System::Void perceptronLearningBinaryFuncToolStripMenuItem_Click(System::Object^ sender, System::EventArgs^ e) {
 		set_random_value_to_array(weight_array, weight_array_length);
 		int cycle = 100000;
@@ -488,16 +490,69 @@ namespace SingleLayerNeruronNetwork {
 		int cycle_count;
 		for (cycle_count = 0; cycle_count < cycle; cycle_count++) {
 			stop_training = true;
+			// give each point one by one to perceptron learning rule. this function returns 1 for a point when weights get update for that point otherwise it returns 0.
 			for (int i = 0; i < total_points; i++) {
 				training_return_values[i] = perceptron_learning(points[i], weight_array, dimension, total_class_number);
 			}
-
+			// after running perceptron for every point if the return value for every points are not equal to 1 ( not update for weights ) then learning is finish and don't need to contineou
 			for (int j = 0; j < total_points; j++) {
 				if (training_return_values[j] == 0) {
 					stop_training = false;
 				}
 			}
 			if (stop_training) {
+				break;
+			}
+		}
+
+		cycle_count_label->Text = cycle_count.ToString();
+		// draw a line for each class (except when class number is equal to 2 , in that situation 1 line is enough)
+		for (int i = 0; i < total_class_number; i++) {
+
+			Pen^ pen;
+			switch (i) {
+			case 0: pen = gcnew Pen(Color::Red, 3.0f); break;
+			case 1: pen = gcnew Pen(Color::Green, 3.0f); break;
+			case 2: pen = gcnew Pen(Color::Blue, 3.0f); break;
+			case 3: pen = gcnew Pen(Color::Yellow, 3.0f); break;
+			case 4: pen = gcnew Pen(Color::Pink, 3.0f); break;
+			case 5: pen = gcnew Pen(Color::Orange, 3.0f); break;
+			case 6: pen = gcnew Pen(Color::Aqua, 3.0f); break;
+			case 7: pen = gcnew Pen(Color::Brown, 3.0f); break;
+			case 8: pen = gcnew Pen(Color::Purple, 3.0f); break;
+			default: pen = gcnew Pen(Color::Black, 3.0f);
+			}
+
+			int min_x, min_y, max_x, max_y;
+			min_x = (this->Coordinate_plane_PictureBox->Width) / -2;
+			min_y = find_y_point(min_x, &weight_array[i * (dimension + 1)]);
+			max_x = (this->Coordinate_plane_PictureBox->Width) / 2;
+			max_y = find_y_point(max_x, &weight_array[i * (dimension + 1)]);
+			Coordinate_plane_PictureBox->CreateGraphics()->DrawLine(pen, max_x + min_x, (Coordinate_plane_PictureBox->Height / 2) - min_y, max_x + max_x, (Coordinate_plane_PictureBox->Height / 2) - max_y);
+
+		}
+	}
+
+//##############################################################################################################################################################################################################
+
+	private: System::Void deltaLearningContinuousFuncToolStripMenuItem_Click(System::Object^ sender, System::EventArgs^ e) {
+		set_random_value_to_array(weight_array, weight_array_length);
+		// normalize points using z-score nomalization method
+		z_score_normalization(points, total_points);
+		// clear coordinate plane
+		Coordinate_plane_PictureBox->Refresh();
+
+		int cycle = 100000;
+		float max_error = 0.4;
+
+		int cycle_count;
+		for (cycle_count = 0; cycle_count < cycle; cycle_count++) {
+			double total_error = 0.0;
+			for (int i = 0; i < total_points; i++) {
+				total_error += delta_learning(points[i], weight_array, dimension, total_class_number);
+			}
+
+			if (total_error < max_error) {
 				break;
 			}
 		}
@@ -521,10 +576,35 @@ namespace SingleLayerNeruronNetwork {
 
 			int min_x, min_y, max_x, max_y;
 			min_x = (this->Coordinate_plane_PictureBox->Width) / -2;
-			min_y = find_y_point(min_x, &weight_array[i * (dimension + 1)]);
+			min_y = find_y_point(min_x, &weight_array[i * (dimension + 1)], 100);
 			max_x = (this->Coordinate_plane_PictureBox->Width) / 2;
-			max_y = find_y_point(max_x, &weight_array[i * (dimension + 1)]);
-			Coordinate_plane_PictureBox->CreateGraphics()->DrawLine(pen, max_x + min_x, (Coordinate_plane_PictureBox->Height / 2) - min_y, max_x + max_x, (Coordinate_plane_PictureBox->Height / 2) - max_y);
+			max_y = find_y_point(max_x, &weight_array[i * (dimension + 1)], 100);
+			Coordinate_plane_PictureBox->CreateGraphics()->DrawLine(pen, (Coordinate_plane_PictureBox->Width / 2) - min_x, (Coordinate_plane_PictureBox->Height / 2) + min_y, (Coordinate_plane_PictureBox->Width / 2) - max_x, (Coordinate_plane_PictureBox->Height / 2) + max_y);
+
+		}
+
+
+		// draw points again but as they are normalized we multiply each point location by a constant to have better output
+		for (int i = 0; i < total_points; i++) {
+			int pure_x = points[i].x_coordinates[0] * 100 + (Coordinate_plane_PictureBox->Width / 2);
+			int pure_y = (Coordinate_plane_PictureBox->Height / 2) - points[i].x_coordinates[1] * 100;
+
+			Pen^ pen;
+			switch (points[i].class_id) {
+			case 0: pen = gcnew Pen(Color::Red, 3.0f); break;
+			case 1: pen = gcnew Pen(Color::Green, 3.0f); break;
+			case 2: pen = gcnew Pen(Color::Blue, 3.0f); break;
+			case 3: pen = gcnew Pen(Color::Yellow, 3.0f); break;
+			case 4: pen = gcnew Pen(Color::Pink, 3.0f); break;
+			case 5: pen = gcnew Pen(Color::Orange, 3.0f); break;
+			case 6: pen = gcnew Pen(Color::Aqua, 3.0f); break;
+			case 7: pen = gcnew Pen(Color::Brown, 3.0f); break;
+			case 8: pen = gcnew Pen(Color::Purple, 3.0f); break;
+			default: pen = gcnew Pen(Color::Black, 3.0f);
+			}
+
+			Coordinate_plane_PictureBox->CreateGraphics()->DrawLine(pen, pure_x - 5, pure_y, pure_x + 5, pure_y);
+			Coordinate_plane_PictureBox->CreateGraphics()->DrawLine(pen, pure_x, pure_y - 5, pure_x, pure_y + 5);
 
 		}
 	}
