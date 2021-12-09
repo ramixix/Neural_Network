@@ -58,7 +58,15 @@ namespace SingleLayerNeruronNetwork {
 		int dimension = 2;
 		double* weight_array;
 		int weight_array_length;
-		System::ComponentModel::Container ^components;
+	private: System::Windows::Forms::GroupBox^ groupBox2;
+	private: System::Windows::Forms::Label^ x2_label;
+	private: System::Windows::Forms::Label^ x1_label;
+	private: System::Windows::Forms::Label^ label6;
+	private: System::Windows::Forms::Label^ label5;
+	private: System::Windows::Forms::Label^ label4;
+	private: System::Windows::Forms::Label^ total_sample_label;
+	private: System::Windows::Forms::Label^ label3;
+		   System::ComponentModel::Container^ components;
 
 #pragma region Windows Form Designer generated code
 		/// <summary>
@@ -75,8 +83,17 @@ namespace SingleLayerNeruronNetwork {
 			this->Set_class_num_button = (gcnew System::Windows::Forms::Button());
 			this->total_classNum_combo_box = (gcnew System::Windows::Forms::ComboBox());
 			this->label1 = (gcnew System::Windows::Forms::Label());
+			this->groupBox2 = (gcnew System::Windows::Forms::GroupBox());
+			this->x2_label = (gcnew System::Windows::Forms::Label());
+			this->x1_label = (gcnew System::Windows::Forms::Label());
+			this->label6 = (gcnew System::Windows::Forms::Label());
+			this->label5 = (gcnew System::Windows::Forms::Label());
+			this->label4 = (gcnew System::Windows::Forms::Label());
+			this->total_sample_label = (gcnew System::Windows::Forms::Label());
+			this->label3 = (gcnew System::Windows::Forms::Label());
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->Coordinate_plane_PictureBox))->BeginInit();
 			this->groupBox1->SuspendLayout();
+			this->groupBox2->SuspendLayout();
 			this->SuspendLayout();
 			// 
 			// Coordinate_plane_PictureBox
@@ -90,6 +107,7 @@ namespace SingleLayerNeruronNetwork {
 			this->Coordinate_plane_PictureBox->TabIndex = 0;
 			this->Coordinate_plane_PictureBox->TabStop = false;
 			this->Coordinate_plane_PictureBox->Paint += gcnew System::Windows::Forms::PaintEventHandler(this, &MyForm::Coordinate_plane_PictureBox_Paint);
+			this->Coordinate_plane_PictureBox->MouseClick += gcnew System::Windows::Forms::MouseEventHandler(this, &MyForm::Coordinate_plane_PictureBox_MouseClick);
 			// 
 			// groupBox1
 			// 
@@ -144,6 +162,7 @@ namespace SingleLayerNeruronNetwork {
 			this->Set_class_num_button->TabIndex = 2;
 			this->Set_class_num_button->Text = L"Set";
 			this->Set_class_num_button->UseVisualStyleBackColor = true;
+			this->Set_class_num_button->Click += gcnew System::EventHandler(this, &MyForm::Set_class_num_button_Click);
 			// 
 			// total_classNum_combo_box
 			// 
@@ -171,11 +190,107 @@ namespace SingleLayerNeruronNetwork {
 			this->label1->TabIndex = 0;
 			this->label1->Text = L"Total Number of Classes You Want To Use :";
 			// 
+			// groupBox2
+			// 
+			this->groupBox2->Controls->Add(this->x2_label);
+			this->groupBox2->Controls->Add(this->x1_label);
+			this->groupBox2->Controls->Add(this->label6);
+			this->groupBox2->Controls->Add(this->label5);
+			this->groupBox2->Controls->Add(this->label4);
+			this->groupBox2->Controls->Add(this->total_sample_label);
+			this->groupBox2->Controls->Add(this->label3);
+			this->groupBox2->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 9.75F, static_cast<System::Drawing::FontStyle>((System::Drawing::FontStyle::Bold | System::Drawing::FontStyle::Underline)),
+				System::Drawing::GraphicsUnit::Point, static_cast<System::Byte>(0)));
+			this->groupBox2->Location = System::Drawing::Point(838, 354);
+			this->groupBox2->Name = L"groupBox2";
+			this->groupBox2->Size = System::Drawing::Size(300, 159);
+			this->groupBox2->TabIndex = 6;
+			this->groupBox2->TabStop = false;
+			this->groupBox2->Text = L"Information";
+			// 
+			// x2_label
+			// 
+			this->x2_label->AutoSize = true;
+			this->x2_label->Font = (gcnew System::Drawing::Font(L"Arial", 8.25F, static_cast<System::Drawing::FontStyle>((System::Drawing::FontStyle::Bold | System::Drawing::FontStyle::Italic)),
+				System::Drawing::GraphicsUnit::Point, static_cast<System::Byte>(0)));
+			this->x2_label->Location = System::Drawing::Point(176, 101);
+			this->x2_label->Name = L"x2_label";
+			this->x2_label->Size = System::Drawing::Size(11, 13);
+			this->x2_label->TabIndex = 9;
+			this->x2_label->Text = L"-";
+			// 
+			// x1_label
+			// 
+			this->x1_label->AutoSize = true;
+			this->x1_label->Font = (gcnew System::Drawing::Font(L"Arial", 8.25F, static_cast<System::Drawing::FontStyle>((System::Drawing::FontStyle::Bold | System::Drawing::FontStyle::Italic)),
+				System::Drawing::GraphicsUnit::Point, static_cast<System::Byte>(0)));
+			this->x1_label->Location = System::Drawing::Point(42, 104);
+			this->x1_label->Name = L"x1_label";
+			this->x1_label->Size = System::Drawing::Size(11, 13);
+			this->x1_label->TabIndex = 8;
+			this->x1_label->Text = L"-";
+			// 
+			// label6
+			// 
+			this->label6->AutoSize = true;
+			this->label6->Font = (gcnew System::Drawing::Font(L"Sitka Small", 8.25F, static_cast<System::Drawing::FontStyle>((System::Drawing::FontStyle::Bold | System::Drawing::FontStyle::Italic)),
+				System::Drawing::GraphicsUnit::Point, static_cast<System::Byte>(0)));
+			this->label6->Location = System::Drawing::Point(6, 101);
+			this->label6->Name = L"label6";
+			this->label6->Size = System::Drawing::Size(30, 16);
+			this->label6->TabIndex = 7;
+			this->label6->Text = L"X1 :";
+			// 
+			// label5
+			// 
+			this->label5->AutoSize = true;
+			this->label5->Font = (gcnew System::Drawing::Font(L"Sitka Small", 8.25F, static_cast<System::Drawing::FontStyle>((System::Drawing::FontStyle::Bold | System::Drawing::FontStyle::Italic)),
+				System::Drawing::GraphicsUnit::Point, static_cast<System::Byte>(0)));
+			this->label5->Location = System::Drawing::Point(139, 101);
+			this->label5->Name = L"label5";
+			this->label5->Size = System::Drawing::Size(31, 16);
+			this->label5->TabIndex = 6;
+			this->label5->Text = L"X2 :";
+			// 
+			// label4
+			// 
+			this->label4->AutoSize = true;
+			this->label4->Font = (gcnew System::Drawing::Font(L"Sitka Small", 8.25F, static_cast<System::Drawing::FontStyle>((System::Drawing::FontStyle::Bold | System::Drawing::FontStyle::Italic)),
+				System::Drawing::GraphicsUnit::Point, static_cast<System::Byte>(0)));
+			this->label4->Location = System::Drawing::Point(6, 71);
+			this->label4->Name = L"label4";
+			this->label4->Size = System::Drawing::Size(85, 16);
+			this->label4->TabIndex = 5;
+			this->label4->Text = L"Coordinates :";
+			// 
+			// total_sample_label
+			// 
+			this->total_sample_label->AutoSize = true;
+			this->total_sample_label->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 8.25F, static_cast<System::Drawing::FontStyle>((System::Drawing::FontStyle::Bold | System::Drawing::FontStyle::Italic)),
+				System::Drawing::GraphicsUnit::Point, static_cast<System::Byte>(0)));
+			this->total_sample_label->Location = System::Drawing::Point(175, 32);
+			this->total_sample_label->Name = L"total_sample_label";
+			this->total_sample_label->Size = System::Drawing::Size(11, 13);
+			this->total_sample_label->TabIndex = 4;
+			this->total_sample_label->Text = L"-";
+			// 
+			// label3
+			// 
+			this->label3->AutoSize = true;
+			this->label3->Font = (gcnew System::Drawing::Font(L"Sitka Small", 8.25F, static_cast<System::Drawing::FontStyle>((System::Drawing::FontStyle::Bold | System::Drawing::FontStyle::Italic)),
+				System::Drawing::GraphicsUnit::Point, static_cast<System::Byte>(0)));
+			this->label3->Location = System::Drawing::Point(6, 29);
+			this->label3->Name = L"label3";
+			this->label3->Size = System::Drawing::Size(163, 16);
+			this->label3->TabIndex = 0;
+			this->label3->Text = L"Total Number Of Samples :";
+			// 
 			// MyForm
 			// 
 			this->AutoScaleDimensions = System::Drawing::SizeF(6, 13);
 			this->AutoScaleMode = System::Windows::Forms::AutoScaleMode::Font;
 			this->ClientSize = System::Drawing::Size(1184, 641);
+			this->Controls->Add(this->groupBox2);
 			this->Controls->Add(this->groupBox1);
 			this->Controls->Add(this->Coordinate_plane_PictureBox);
 			this->Icon = (cli::safe_cast<System::Drawing::Icon^>(resources->GetObject(L"$this.Icon")));
@@ -184,11 +299,15 @@ namespace SingleLayerNeruronNetwork {
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->Coordinate_plane_PictureBox))->EndInit();
 			this->groupBox1->ResumeLayout(false);
 			this->groupBox1->PerformLayout();
+			this->groupBox2->ResumeLayout(false);
+			this->groupBox2->PerformLayout();
 			this->ResumeLayout(false);
 
 		}
 #pragma endregion
-//##################################################################################################################################################################################################
+
+//###############################################################################################################################################################################################################
+
 	// Draw the horizontal and vertical lines on coordinate plane 
 	private: System::Void Coordinate_plane_PictureBox_Paint(System::Object^ sender, System::Windows::Forms::PaintEventArgs^ e) {
 		Pen^ pen_color = gcnew Pen(Color::Black, 2.0f);
@@ -199,7 +318,84 @@ namespace SingleLayerNeruronNetwork {
 		// draw horizontal line
 		e->Graphics->DrawLine(pen_color, 0, center_height, Coordinate_plane_PictureBox->Width, center_height);
 	}
-	};
-}
 
-//##################################################################################################################################################################################################
+//###############################################################################################################################################################################################################
+
+	// take total number of classes that user choose and put it in a variable called 'total_class_number'
+	private: System::Void Set_class_num_button_Click(System::Object^ sender, System::EventArgs^ e) {
+		// users only can choose number of classes between 2-9 inside combo box and if they enter anything else we give them a message to select number form combobox
+		if (!check_combobox_selection((char)(Convert::ToChar(total_classNum_combo_box->Text))))
+			MessageBox::Show("Setting the total number of classes by choosing an option from the combo box.");
+		else {
+			class_id_combo_box->Enabled = true;
+			total_class_number = Convert::ToInt16(total_classNum_combo_box->Text);
+
+			// if user choose 2 classes then we just need to draw one line to separate them that is why we set it to 1
+			if (total_class_number == 2)
+				total_class_number = 1;
+
+			// the rows of our weight matrix is equal to total class number and the colums are equal to inputs + 1 ( because we are going to choose our input from coordinate palne
+			// the input number is always equal to 2. the +1  is because we also add bias constant to our input matrix)
+			weight_array_length = total_class_number * (dimension + 1);
+			weight_array = new double[weight_array_length];
+		}
+	}
+
+//##############################################################################################################################################################################################################
+
+	private: System::Void Coordinate_plane_PictureBox_MouseClick(System::Object^ sender, System::Windows::Forms::MouseEventArgs^ e) {
+		int x1_coordinate = Convert::ToInt32(e->X);
+		int x2_coordinate = Convert::ToInt32(e->Y);
+
+		double transferred_x1 = (double)(x1_coordinate - (Coordinate_plane_PictureBox->Width / 2));
+		double transferred_x2 = (double)((Coordinate_plane_PictureBox->Height / 2) - x2_coordinate);
+
+		int class_id;
+		// check if user already set total class number
+		if (class_id_combo_box->Enabled == true) {
+			class_id = class_id_combo_box->SelectedIndex;
+
+			//chech if the point is the first point ever added
+			if (total_points == 0) {
+				total_points++;
+				points = new Sample[1];
+				points->x_coordinates = new double[dimension];
+				points[0].x_coordinates[0] = transferred_x1;
+				points[0].x_coordinates[1] = transferred_x2;
+				points[0].class_id = class_id;
+
+			}
+			else {
+				total_points++;
+				points = add_sample_to_points(points, total_points, transferred_x1, transferred_x2, class_id, dimension);
+			}
+
+			// set different color to every class according to its class id.
+			Pen^ pen;
+			switch (class_id) {
+			case 0: pen = gcnew Pen(Color::Red, 3.0f); break;
+			case 1: pen = gcnew Pen(Color::Green, 3.0f); break;
+			case 2: pen = gcnew Pen(Color::Blue, 3.0f); break;
+			case 3: pen = gcnew Pen(Color::Yellow, 3.0f); break;
+			case 4: pen = gcnew Pen(Color::Pink, 3.0f); break;
+			case 5: pen = gcnew Pen(Color::Orange, 3.0f); break;
+			case 6: pen = gcnew Pen(Color::Aqua, 3.0f); break;
+			case 7: pen = gcnew Pen(Color::Brown, 3.0f); break;
+			case 8: pen = gcnew Pen(Color::Purple, 3.0f); break;
+			default: pen = gcnew Pen(Color::Black, 3.0f);
+			}
+
+			Coordinate_plane_PictureBox->CreateGraphics()->DrawLine(pen, x1_coordinate - 5, x2_coordinate, x1_coordinate + 5, x2_coordinate);
+			Coordinate_plane_PictureBox->CreateGraphics()->DrawLine(pen, x1_coordinate, x2_coordinate - 5, x1_coordinate, x2_coordinate + 5);
+			total_sample_label->Text = Convert::ToString(total_points);
+			x1_label->Text = Convert::ToString(transferred_x1);
+			x2_label->Text = Convert::ToString(transferred_x2);
+
+
+		}
+		else {
+			MessageBox::Show("You need to first specify total class number then you can add sample for desired class id.");
+		}
+	}
+};
+}

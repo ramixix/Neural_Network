@@ -1,6 +1,9 @@
 ﻿  MyForm.cpp
+D:\Neural_Network\Neural_Network\Single_Layer_Neruron_Network\Single_Layer_Neruron_Network\MyForm.h(367,73): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
+D:\Neural_Network\Neural_Network\Single_Layer_Neruron_Network\Single_Layer_Neruron_Network\MyForm.h(367,57): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
 D:\Neural_Network\Neural_Network\Single_Layer_Neruron_Network\Single_Layer_Neruron_Network\MyForm.cpp(9,33): warning C4829: Possibly incorrect parameters to function main. Consider 'int main(Platform::Array<Platform::String^>^ argv)'
   Utils.cpp
+D:\Neural_Network\Neural_Network\Single_Layer_Neruron_Network\Single_Layer_Neruron_Network\Utils.cpp(21,23): warning C4018: '<': signed/unsigned mismatch
   Generating Code...
   MyForm.obj : MSIL module encountered; incremental linking is disabled for MSIL; performing full link
   Single_Layer_Neruron_Network.vcxproj -> D:\Neural_Network\Neural_Network\Single_Layer_Neruron_Network\Debug\Single_Layer_Neruron_Network.exe
