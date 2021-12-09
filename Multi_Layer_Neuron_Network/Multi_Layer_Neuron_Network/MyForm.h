@@ -1,4 +1,5 @@
 #pragma once
+#include "Utils.h"
 
 namespace MultiLayerNeuronNetwork {
 
@@ -37,7 +38,9 @@ namespace MultiLayerNeuronNetwork {
 				delete components;
 			}
 		}
-	private: System::Windows::Forms::PictureBox^ coordinate_plane_picbox;
+	private: System::Windows::Forms::PictureBox^ Coordinate_plane_PictureBox;
+	protected:
+
 	protected:
 	private: System::Windows::Forms::MenuStrip^ menuStrip1;
 	private: System::Windows::Forms::ToolStripMenuItem^ fileToolStripMenuItem;
@@ -73,6 +76,18 @@ namespace MultiLayerNeuronNetwork {
 		/// <summary>
 		/// Required designer variable.
 		/// </summary>
+		/// 
+		int total_class_number;
+		int total_points = 0;
+		Sample* points;
+		int dimension = 2;
+		double* weight_array;
+		int weight_array_length;
+		short int number_of_hidden_layers;
+		short int neurons_number_in_each_hidden_layer;
+		int total_layers = 0;
+
+
 		System::ComponentModel::Container ^components;
 
 #pragma region Windows Form Designer generated code
@@ -83,7 +98,7 @@ namespace MultiLayerNeuronNetwork {
 		void InitializeComponent(void)
 		{
 			System::ComponentModel::ComponentResourceManager^ resources = (gcnew System::ComponentModel::ComponentResourceManager(MyForm::typeid));
-			this->coordinate_plane_picbox = (gcnew System::Windows::Forms::PictureBox());
+			this->Coordinate_plane_PictureBox = (gcnew System::Windows::Forms::PictureBox());
 			this->menuStrip1 = (gcnew System::Windows::Forms::MenuStrip());
 			this->fileToolStripMenuItem = (gcnew System::Windows::Forms::ToolStripMenuItem());
 			this->readToolStripMenuItem = (gcnew System::Windows::Forms::ToolStripMenuItem());
@@ -113,22 +128,24 @@ namespace MultiLayerNeuronNetwork {
 			this->label4 = (gcnew System::Windows::Forms::Label());
 			this->total_sample_label = (gcnew System::Windows::Forms::Label());
 			this->label3 = (gcnew System::Windows::Forms::Label());
-			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->coordinate_plane_picbox))->BeginInit();
+			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->Coordinate_plane_PictureBox))->BeginInit();
 			this->menuStrip1->SuspendLayout();
 			this->groupBox1->SuspendLayout();
 			this->groupBox2->SuspendLayout();
 			this->SuspendLayout();
 			// 
-			// coordinate_plane_picbox
+			// Coordinate_plane_PictureBox
 			// 
-			this->coordinate_plane_picbox->BackColor = System::Drawing::SystemColors::ControlLightLight;
-			this->coordinate_plane_picbox->BorderStyle = System::Windows::Forms::BorderStyle::FixedSingle;
-			this->coordinate_plane_picbox->Cursor = System::Windows::Forms::Cursors::Hand;
-			this->coordinate_plane_picbox->Location = System::Drawing::Point(2, 29);
-			this->coordinate_plane_picbox->Name = L"coordinate_plane_picbox";
-			this->coordinate_plane_picbox->Size = System::Drawing::Size(800, 600);
-			this->coordinate_plane_picbox->TabIndex = 3;
-			this->coordinate_plane_picbox->TabStop = false;
+			this->Coordinate_plane_PictureBox->BackColor = System::Drawing::SystemColors::ControlLightLight;
+			this->Coordinate_plane_PictureBox->BorderStyle = System::Windows::Forms::BorderStyle::FixedSingle;
+			this->Coordinate_plane_PictureBox->Cursor = System::Windows::Forms::Cursors::Hand;
+			this->Coordinate_plane_PictureBox->Location = System::Drawing::Point(2, 29);
+			this->Coordinate_plane_PictureBox->Name = L"Coordinate_plane_PictureBox";
+			this->Coordinate_plane_PictureBox->Size = System::Drawing::Size(800, 600);
+			this->Coordinate_plane_PictureBox->TabIndex = 3;
+			this->Coordinate_plane_PictureBox->TabStop = false;
+			this->Coordinate_plane_PictureBox->Click += gcnew System::EventHandler(this, &MyForm::Coordinate_plane_PictureBox_Click);
+			this->Coordinate_plane_PictureBox->Paint += gcnew System::Windows::Forms::PaintEventHandler(this, &MyForm::Coordinate_plane_PictureBox_Paint);
 			// 
 			// menuStrip1
 			// 
@@ -155,13 +172,13 @@ namespace MultiLayerNeuronNetwork {
 			// readToolStripMenuItem
 			// 
 			this->readToolStripMenuItem->Name = L"readToolStripMenuItem";
-			this->readToolStripMenuItem->Size = System::Drawing::Size(180, 22);
+			this->readToolStripMenuItem->Size = System::Drawing::Size(102, 22);
 			this->readToolStripMenuItem->Text = L"Read";
 			// 
 			// writeToolStripMenuItem
 			// 
 			this->writeToolStripMenuItem->Name = L"writeToolStripMenuItem";
-			this->writeToolStripMenuItem->Size = System::Drawing::Size(180, 22);
+			this->writeToolStripMenuItem->Size = System::Drawing::Size(102, 22);
 			this->writeToolStripMenuItem->Text = L"Write";
 			// 
 			// trainToolStripMenuItem
@@ -213,6 +230,10 @@ namespace MultiLayerNeuronNetwork {
 			this->hidden_neurons_num_combo_box->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 9.75F, System::Drawing::FontStyle::Regular,
 				System::Drawing::GraphicsUnit::Point, static_cast<System::Byte>(0)));
 			this->hidden_neurons_num_combo_box->FormattingEnabled = true;
+			this->hidden_neurons_num_combo_box->Items->AddRange(gcnew cli::array< System::Object^  >(9) {
+				L"1", L"2", L"3", L"4", L"5",
+					L"6", L"7", L"8", L"9"
+			});
 			this->hidden_neurons_num_combo_box->Location = System::Drawing::Point(25, 179);
 			this->hidden_neurons_num_combo_box->Name = L"hidden_neurons_num_combo_box";
 			this->hidden_neurons_num_combo_box->Size = System::Drawing::Size(80, 24);
@@ -314,6 +335,7 @@ namespace MultiLayerNeuronNetwork {
 			this->set_button->TabIndex = 2;
 			this->set_button->Text = L"Set";
 			this->set_button->UseVisualStyleBackColor = true;
+			this->set_button->Click += gcnew System::EventHandler(this, &MyForm::set_button_Click);
 			// 
 			// total_classNum_combo_box
 			// 
@@ -329,6 +351,7 @@ namespace MultiLayerNeuronNetwork {
 			this->total_classNum_combo_box->Size = System::Drawing::Size(80, 24);
 			this->total_classNum_combo_box->TabIndex = 1;
 			this->total_classNum_combo_box->Text = L"*";
+			this->total_classNum_combo_box->SelectedIndexChanged += gcnew System::EventHandler(this, &MyForm::total_classNum_combo_box_SelectedIndexChanged);
 			// 
 			// label1
 			// 
@@ -467,13 +490,13 @@ namespace MultiLayerNeuronNetwork {
 			this->ClientSize = System::Drawing::Size(1184, 641);
 			this->Controls->Add(this->groupBox2);
 			this->Controls->Add(this->groupBox1);
-			this->Controls->Add(this->coordinate_plane_picbox);
+			this->Controls->Add(this->Coordinate_plane_PictureBox);
 			this->Controls->Add(this->menuStrip1);
 			this->Icon = (cli::safe_cast<System::Drawing::Icon^>(resources->GetObject(L"$this.Icon")));
 			this->MainMenuStrip = this->menuStrip1;
 			this->Name = L"MyForm";
 			this->Text = L"MyForm";
-			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->coordinate_plane_picbox))->EndInit();
+			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->Coordinate_plane_PictureBox))->EndInit();
 			this->menuStrip1->ResumeLayout(false);
 			this->menuStrip1->PerformLayout();
 			this->groupBox1->ResumeLayout(false);
@@ -485,5 +508,133 @@ namespace MultiLayerNeuronNetwork {
 
 		}
 #pragma endregion
-	};
+
+//###############################################################################################################################################################################################################
+
+	// Draw the horizontal and vertical lines on coordinate plane 
+	private: System::Void Coordinate_plane_PictureBox_Paint(System::Object^ sender, System::Windows::Forms::PaintEventArgs^ e) {
+		Pen^ pen_color = gcnew Pen(Color::Black, 2.0f);
+		int center_width = (int)(Coordinate_plane_PictureBox->Width / 2);
+		int center_height = (int)(Coordinate_plane_PictureBox->Height / 2);
+		// draw vertical line
+		e->Graphics->DrawLine(pen_color, center_width, 0, center_width, Coordinate_plane_PictureBox->Height);
+		// draw horizontal line
+		e->Graphics->DrawLine(pen_color, 0, center_height, Coordinate_plane_PictureBox->Width, center_height);
+	}
+
+
+//###############################################################################################################################################################################################################
+
+// take total number of classes, number of hidden layers and number of neurons that exist in each layer from user put it in a variables for future use
+	private: System::Void set_button_Click(System::Object^ sender, System::EventArgs^ e) {
+		// users only can choose number of classes between 2-9 inside combo box and if they enter anything else we give them a message to select number form combobox
+		if (!check_combobox_selection((char)(Convert::ToChar(total_classNum_combo_box->Text))))
+			MessageBox::Show("Setting the total number of classes by choosing an option from the combo box.");
+		else {
+			class_id_combo_box->Enabled = true;
+			total_class_number = Convert::ToInt16(total_classNum_combo_box->Text);
+			number_of_hidden_layers = Convert::ToInt16(hidden_layers_num_combo_box->Text);
+			neurons_number_in_each_hidden_layer = Convert::ToInt16(hidden_neurons_num_combo_box->Text);
+
+
+			// the rows of our weight matrix is equal to total class number and the colums are equal to inputs + 1 ( because we are going to choose our input from coordinate palne
+			// the input number is always equal to 2. the +1  is because we also add bias constant to our input matrix)
+			weight_array_length = total_class_number * (dimension + 1);
+			weight_array = new double[weight_array_length];
+		}
+	}
+
+//##############################################################################################################################################################################################################
+	
+	private: System::Void total_classNum_combo_box_SelectedIndexChanged(System::Object^ sender, System::EventArgs^ e) {
+		class_id_combo_box->Items->Clear();
+		int items_number;
+		int selected_num = Convert::ToInt16(total_classNum_combo_box->SelectedItem);
+		// enable hidden_layer_num combo box, letting user to specify the number of hidden layers they want to use
+		hidden_layers_num_combo_box->Enabled = true;
+		hidden_layers_num_combo_box->SelectedIndex = 0;
+		// enable hidden_neuron_num combobox, so user can specify how many neurons they want to use in each hidden layer
+		hidden_neurons_num_combo_box->Enabled = true;
+		hidden_neurons_num_combo_box->SelectedIndex = 0;
+
+		switch (selected_num) {
+		case 2: items_number = 2; break;
+		case 3: items_number = 3; break;
+		case 4: items_number = 4; break;
+		case 5: items_number = 5; break;
+		case 6: items_number = 6; break;
+		case 7: items_number = 7; break;
+		case 8: items_number = 8; break;
+		case 9: items_number = 9; break;
+		default: items_number = -1;
+		}
+
+		if (items_number != -1) {
+			for (int i = 1; i <= items_number; i++) {
+				class_id_combo_box->Items->Add(Convert::ToString(i));
+			}
+			class_id_combo_box->SelectedIndex = 0;
+		}
+		else {
+			class_id_combo_box->Enabled = false;
+		}
+	}
+
+//##############################################################################################################################################################################################################
+
+	private: System::Void Coordinate_plane_PictureBox_Click(System::Object^ sender, System::EventArgs^ e) {
+		int x1_coordinate = Convert::ToInt32(e->X);
+		int x2_coordinate = Convert::ToInt32(e->Y);
+
+		double transferred_x1 = (double)(x1_coordinate - (Coordinate_plane_PictureBox->Width / 2));
+		double transferred_x2 = (double)((Coordinate_plane_PictureBox->Height / 2) - x2_coordinate);
+
+		int class_id;
+		// check if user already set total class number
+		if (class_id_combo_box->Enabled == true) {
+			class_id = class_id_combo_box->SelectedIndex;
+
+			//chech if the point is the first point ever added
+			if (total_points == 0) {
+				total_points++;
+				points = new Sample[1];
+				points->x_coordinates = new double[dimension];
+				points[0].x_coordinates[0] = transferred_x1;
+				points[0].x_coordinates[1] = transferred_x2;
+				points[0].class_id = class_id;
+
+			}
+			else {
+				total_points++;
+				points = add_sample_to_points(points, total_points, transferred_x1, transferred_x2, class_id, dimension);
+			}
+
+			// set different color to every class according to its class id.
+			Pen^ pen;
+			switch (class_id) {
+			case 0: pen = gcnew Pen(Color::Red, 3.0f); break;
+			case 1: pen = gcnew Pen(Color::Green, 3.0f); break;
+			case 2: pen = gcnew Pen(Color::Blue, 3.0f); break;
+			case 3: pen = gcnew Pen(Color::Yellow, 3.0f); break;
+			case 4: pen = gcnew Pen(Color::Pink, 3.0f); break;
+			case 5: pen = gcnew Pen(Color::Orange, 3.0f); break;
+			case 6: pen = gcnew Pen(Color::Aqua, 3.0f); break;
+			case 7: pen = gcnew Pen(Color::Brown, 3.0f); break;
+			case 8: pen = gcnew Pen(Color::Purple, 3.0f); break;
+			default: pen = gcnew Pen(Color::Black, 3.0f);
+			}
+
+			Coordinate_plane_PictureBox->CreateGraphics()->DrawLine(pen, x1_coordinate - 5, x2_coordinate, x1_coordinate + 5, x2_coordinate);
+			Coordinate_plane_PictureBox->CreateGraphics()->DrawLine(pen, x1_coordinate, x2_coordinate - 5, x1_coordinate, x2_coordinate + 5);
+			total_sample_label->Text = Convert::ToString(total_points);
+			x1_label->Text = Convert::ToString(transferred_x1);
+			x2_label->Text = Convert::ToString(transferred_x2);
+
+
+		}
+		else {
+			MessageBox::Show("You need to first specify total class number then you can add sample for desired class id.");
+		}
+	}
+};
 }
