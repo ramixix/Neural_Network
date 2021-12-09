@@ -72,6 +72,8 @@ namespace SingleLayerNeruronNetwork {
 	private: System::Windows::Forms::ToolStripMenuItem^ deltaLearningContinuousFuncToolStripMenuItem;
 	private: System::Windows::Forms::Label^ cycle_count_label;
 	private: System::Windows::Forms::Label^ label7;
+	private: System::Windows::Forms::Button^ clear_lines;
+	private: System::Windows::Forms::Button^ clear_all;
 		   System::ComponentModel::Container^ components;
 
 #pragma region Windows Form Designer generated code
@@ -84,6 +86,8 @@ namespace SingleLayerNeruronNetwork {
 			System::ComponentModel::ComponentResourceManager^ resources = (gcnew System::ComponentModel::ComponentResourceManager(MyForm::typeid));
 			this->Coordinate_plane_PictureBox = (gcnew System::Windows::Forms::PictureBox());
 			this->groupBox1 = (gcnew System::Windows::Forms::GroupBox());
+			this->clear_lines = (gcnew System::Windows::Forms::Button());
+			this->clear_all = (gcnew System::Windows::Forms::Button());
 			this->class_id_combo_box = (gcnew System::Windows::Forms::ComboBox());
 			this->label2 = (gcnew System::Windows::Forms::Label());
 			this->Set_class_num_button = (gcnew System::Windows::Forms::Button());
@@ -124,6 +128,8 @@ namespace SingleLayerNeruronNetwork {
 			// 
 			// groupBox1
 			// 
+			this->groupBox1->Controls->Add(this->clear_lines);
+			this->groupBox1->Controls->Add(this->clear_all);
 			this->groupBox1->Controls->Add(this->class_id_combo_box);
 			this->groupBox1->Controls->Add(this->label2);
 			this->groupBox1->Controls->Add(this->Set_class_num_button);
@@ -137,6 +143,30 @@ namespace SingleLayerNeruronNetwork {
 			this->groupBox1->TabIndex = 4;
 			this->groupBox1->TabStop = false;
 			this->groupBox1->Text = L"Settings";
+			// 
+			// clear_lines
+			// 
+			this->clear_lines->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 9, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
+				static_cast<System::Byte>(0)));
+			this->clear_lines->Location = System::Drawing::Point(22, 203);
+			this->clear_lines->Name = L"clear_lines";
+			this->clear_lines->Size = System::Drawing::Size(123, 52);
+			this->clear_lines->TabIndex = 9;
+			this->clear_lines->Text = L"Clear Lines";
+			this->clear_lines->UseVisualStyleBackColor = true;
+			this->clear_lines->Click += gcnew System::EventHandler(this, &MyForm::clear_lines_Click);
+			// 
+			// clear_all
+			// 
+			this->clear_all->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 9, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
+				static_cast<System::Byte>(0)));
+			this->clear_all->Location = System::Drawing::Point(151, 203);
+			this->clear_all->Name = L"clear_all";
+			this->clear_all->Size = System::Drawing::Size(122, 52);
+			this->clear_all->TabIndex = 8;
+			this->clear_all->Text = L"Clear All";
+			this->clear_all->UseVisualStyleBackColor = true;
+			this->clear_all->Click += gcnew System::EventHandler(this, &MyForm::clear_all_Click);
 			// 
 			// class_id_combo_box
 			// 
@@ -607,6 +637,46 @@ namespace SingleLayerNeruronNetwork {
 			Coordinate_plane_PictureBox->CreateGraphics()->DrawLine(pen, pure_x, pure_y - 5, pure_x, pure_y + 5);
 
 		}
+	}
+
+//##############################################################################################################################################################################################################
+
+	// deleting all lines (we actually clean coordinate plane by deleting all the lines and points and then draw points again)
+	// this is not going to give you a good output if you ran the delta learning before because all the points are normalized, and when you redraw the points, the points will be so close together
+	private: System::Void clear_lines_Click(System::Object^ sender, System::EventArgs^ e) {
+		Coordinate_plane_PictureBox->Refresh();
+
+		for (int i = 0; i < total_points; i++) {
+			int pure_x = points[i].x_coordinates[0] + (Coordinate_plane_PictureBox->Width / 2);
+			int pure_y = (Coordinate_plane_PictureBox->Height / 2) - points[i].x_coordinates[1];
+
+			Pen^ pen;
+			switch (points[i].class_id) {
+			case 0: pen = gcnew Pen(Color::Red, 3.0f); break;
+			case 1: pen = gcnew Pen(Color::Green, 3.0f); break;
+			case 2: pen = gcnew Pen(Color::Blue, 3.0f); break;
+			case 3: pen = gcnew Pen(Color::Yellow, 3.0f); break;
+			case 4: pen = gcnew Pen(Color::Pink, 3.0f); break;
+			case 5: pen = gcnew Pen(Color::Orange, 3.0f); break;
+			case 6: pen = gcnew Pen(Color::Aqua, 3.0f); break;
+			case 7: pen = gcnew Pen(Color::Brown, 3.0f); break;
+			case 8: pen = gcnew Pen(Color::Purple, 3.0f); break;
+			default: pen = gcnew Pen(Color::Black, 3.0f);
+			}
+
+			Coordinate_plane_PictureBox->CreateGraphics()->DrawLine(pen, pure_x - 5, pure_y, pure_x + 5, pure_y);
+			Coordinate_plane_PictureBox->CreateGraphics()->DrawLine(pen, pure_x, pure_y - 5, pure_x, pure_y + 5);
+
+		}
+	}
+
+//##############################################################################################################################################################################################################
+	
+	// clear coordinate plane by deleting all the lines and points 
+	private: System::Void clear_all_Click(System::Object^ sender, System::EventArgs^ e) {
+		Coordinate_plane_PictureBox->Refresh();
+		total_points = 0;
+		delete[]points;
 	}
 };
 }
