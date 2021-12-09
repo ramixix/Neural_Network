@@ -221,6 +221,7 @@ namespace SingleLayerNeruronNetwork {
 			this->total_classNum_combo_box->Size = System::Drawing::Size(80, 24);
 			this->total_classNum_combo_box->TabIndex = 1;
 			this->total_classNum_combo_box->Text = L"*";
+			this->total_classNum_combo_box->SelectedIndexChanged += gcnew System::EventHandler(this, &MyForm::total_classNum_combo_box_SelectedIndexChanged);
 			// 
 			// label1
 			// 
@@ -452,6 +453,35 @@ namespace SingleLayerNeruronNetwork {
 
 //##############################################################################################################################################################################################################
 
+	private: System::Void total_classNum_combo_box_SelectedIndexChanged(System::Object^ sender, System::EventArgs^ e) {
+		class_id_combo_box->Items->Clear();
+		int items_number;
+		int selected_num = Convert::ToInt16(total_classNum_combo_box->SelectedItem);
+		switch (selected_num) {
+		case 2: items_number = 2; break;
+		case 3: items_number = 3; break;
+		case 4: items_number = 4; break;
+		case 5: items_number = 5; break;
+		case 6: items_number = 6; break;
+		case 7: items_number = 7; break;
+		case 8: items_number = 8; break;
+		case 9: items_number = 9; break;
+		default: items_number = -1;
+		}
+
+		if (items_number != -1) {
+			for (int i = 1; i <= items_number; i++) {
+				class_id_combo_box->Items->Add(Convert::ToString(i));
+			}
+			class_id_combo_box->SelectedIndex = 0;
+		}
+		else {
+			class_id_combo_box->Enabled = false;
+		}
+	}
+
+//##############################################################################################################################################################################################################
+
 	private: System::Void Coordinate_plane_PictureBox_MouseClick(System::Object^ sender, System::Windows::Forms::MouseEventArgs^ e) {
 		int x1_coordinate = Convert::ToInt32(e->X);
 		int x2_coordinate = Convert::ToInt32(e->Y);
@@ -678,5 +708,6 @@ namespace SingleLayerNeruronNetwork {
 		total_points = 0;
 		delete[]points;
 	}
+
 };
 }
