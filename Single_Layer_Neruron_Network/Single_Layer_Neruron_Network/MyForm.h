@@ -1,5 +1,5 @@
 #pragma once
-#include "Utils.h"
+#include "Learning_Rules.h"
 
 namespace SingleLayerNeruronNetwork {
 
@@ -66,6 +66,12 @@ namespace SingleLayerNeruronNetwork {
 	private: System::Windows::Forms::Label^ label4;
 	private: System::Windows::Forms::Label^ total_sample_label;
 	private: System::Windows::Forms::Label^ label3;
+	private: System::Windows::Forms::MenuStrip^ menuStrip1;
+	private: System::Windows::Forms::ToolStripMenuItem^ learningProcessesToolStripMenuItem;
+	private: System::Windows::Forms::ToolStripMenuItem^ perceptronLearningBinaryFuncToolStripMenuItem;
+	private: System::Windows::Forms::ToolStripMenuItem^ deltaLearningContinuousFuncToolStripMenuItem;
+	private: System::Windows::Forms::Label^ cycle_count_label;
+	private: System::Windows::Forms::Label^ label7;
 		   System::ComponentModel::Container^ components;
 
 #pragma region Windows Form Designer generated code
@@ -91,9 +97,16 @@ namespace SingleLayerNeruronNetwork {
 			this->label4 = (gcnew System::Windows::Forms::Label());
 			this->total_sample_label = (gcnew System::Windows::Forms::Label());
 			this->label3 = (gcnew System::Windows::Forms::Label());
+			this->menuStrip1 = (gcnew System::Windows::Forms::MenuStrip());
+			this->learningProcessesToolStripMenuItem = (gcnew System::Windows::Forms::ToolStripMenuItem());
+			this->perceptronLearningBinaryFuncToolStripMenuItem = (gcnew System::Windows::Forms::ToolStripMenuItem());
+			this->deltaLearningContinuousFuncToolStripMenuItem = (gcnew System::Windows::Forms::ToolStripMenuItem());
+			this->label7 = (gcnew System::Windows::Forms::Label());
+			this->cycle_count_label = (gcnew System::Windows::Forms::Label());
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->Coordinate_plane_PictureBox))->BeginInit();
 			this->groupBox1->SuspendLayout();
 			this->groupBox2->SuspendLayout();
+			this->menuStrip1->SuspendLayout();
 			this->SuspendLayout();
 			// 
 			// Coordinate_plane_PictureBox
@@ -192,6 +205,8 @@ namespace SingleLayerNeruronNetwork {
 			// 
 			// groupBox2
 			// 
+			this->groupBox2->Controls->Add(this->cycle_count_label);
+			this->groupBox2->Controls->Add(this->label7);
 			this->groupBox2->Controls->Add(this->x2_label);
 			this->groupBox2->Controls->Add(this->x1_label);
 			this->groupBox2->Controls->Add(this->label6);
@@ -203,7 +218,7 @@ namespace SingleLayerNeruronNetwork {
 				System::Drawing::GraphicsUnit::Point, static_cast<System::Byte>(0)));
 			this->groupBox2->Location = System::Drawing::Point(838, 354);
 			this->groupBox2->Name = L"groupBox2";
-			this->groupBox2->Size = System::Drawing::Size(300, 159);
+			this->groupBox2->Size = System::Drawing::Size(300, 192);
 			this->groupBox2->TabIndex = 6;
 			this->groupBox2->TabStop = false;
 			this->groupBox2->Text = L"Information";
@@ -285,6 +300,64 @@ namespace SingleLayerNeruronNetwork {
 			this->label3->TabIndex = 0;
 			this->label3->Text = L"Total Number Of Samples :";
 			// 
+			// menuStrip1
+			// 
+			this->menuStrip1->BackColor = System::Drawing::SystemColors::Control;
+			this->menuStrip1->Items->AddRange(gcnew cli::array< System::Windows::Forms::ToolStripItem^  >(1) { this->learningProcessesToolStripMenuItem });
+			this->menuStrip1->Location = System::Drawing::Point(0, 0);
+			this->menuStrip1->Name = L"menuStrip1";
+			this->menuStrip1->Size = System::Drawing::Size(1184, 24);
+			this->menuStrip1->TabIndex = 7;
+			this->menuStrip1->Text = L"menuStrip1";
+			// 
+			// learningProcessesToolStripMenuItem
+			// 
+			this->learningProcessesToolStripMenuItem->BackColor = System::Drawing::SystemColors::Control;
+			this->learningProcessesToolStripMenuItem->DropDownItems->AddRange(gcnew cli::array< System::Windows::Forms::ToolStripItem^  >(2) {
+				this->perceptronLearningBinaryFuncToolStripMenuItem,
+					this->deltaLearningContinuousFuncToolStripMenuItem
+			});
+			this->learningProcessesToolStripMenuItem->Font = (gcnew System::Drawing::Font(L"Segoe UI", 9, System::Drawing::FontStyle::Bold, System::Drawing::GraphicsUnit::Point,
+				static_cast<System::Byte>(0)));
+			this->learningProcessesToolStripMenuItem->Name = L"learningProcessesToolStripMenuItem";
+			this->learningProcessesToolStripMenuItem->Size = System::Drawing::Size(124, 20);
+			this->learningProcessesToolStripMenuItem->Text = L"Learning Processes";
+			// 
+			// perceptronLearningBinaryFuncToolStripMenuItem
+			// 
+			this->perceptronLearningBinaryFuncToolStripMenuItem->Name = L"perceptronLearningBinaryFuncToolStripMenuItem";
+			this->perceptronLearningBinaryFuncToolStripMenuItem->Size = System::Drawing::Size(265, 22);
+			this->perceptronLearningBinaryFuncToolStripMenuItem->Text = L"Perceptron Learning (Binary func.)";
+			this->perceptronLearningBinaryFuncToolStripMenuItem->Click += gcnew System::EventHandler(this, &MyForm::perceptronLearningBinaryFuncToolStripMenuItem_Click);
+			// 
+			// deltaLearningContinuousFuncToolStripMenuItem
+			// 
+			this->deltaLearningContinuousFuncToolStripMenuItem->Name = L"deltaLearningContinuousFuncToolStripMenuItem";
+			this->deltaLearningContinuousFuncToolStripMenuItem->Size = System::Drawing::Size(265, 22);
+			this->deltaLearningContinuousFuncToolStripMenuItem->Text = L"Delta Learning (Continuous func.)";
+			// 
+			// label7
+			// 
+			this->label7->AutoSize = true;
+			this->label7->Font = (gcnew System::Drawing::Font(L"Sitka Small", 8.25F, static_cast<System::Drawing::FontStyle>((System::Drawing::FontStyle::Bold | System::Drawing::FontStyle::Italic)),
+				System::Drawing::GraphicsUnit::Point, static_cast<System::Byte>(0)));
+			this->label7->Location = System::Drawing::Point(6, 140);
+			this->label7->Name = L"label7";
+			this->label7->Size = System::Drawing::Size(220, 16);
+			this->label7->TabIndex = 11;
+			this->label7->Text = L"Number of Cycles in Training Rules : ";
+			// 
+			// cycle_count_label
+			// 
+			this->cycle_count_label->AutoSize = true;
+			this->cycle_count_label->Font = (gcnew System::Drawing::Font(L"Arial", 8.25F, static_cast<System::Drawing::FontStyle>((System::Drawing::FontStyle::Bold | System::Drawing::FontStyle::Italic)),
+				System::Drawing::GraphicsUnit::Point, static_cast<System::Byte>(0)));
+			this->cycle_count_label->Location = System::Drawing::Point(232, 143);
+			this->cycle_count_label->Name = L"cycle_count_label";
+			this->cycle_count_label->Size = System::Drawing::Size(11, 13);
+			this->cycle_count_label->TabIndex = 12;
+			this->cycle_count_label->Text = L"-";
+			// 
 			// MyForm
 			// 
 			this->AutoScaleDimensions = System::Drawing::SizeF(6, 13);
@@ -293,7 +366,9 @@ namespace SingleLayerNeruronNetwork {
 			this->Controls->Add(this->groupBox2);
 			this->Controls->Add(this->groupBox1);
 			this->Controls->Add(this->Coordinate_plane_PictureBox);
+			this->Controls->Add(this->menuStrip1);
 			this->Icon = (cli::safe_cast<System::Drawing::Icon^>(resources->GetObject(L"$this.Icon")));
+			this->MainMenuStrip = this->menuStrip1;
 			this->Name = L"MyForm";
 			this->Text = L"Single Layer Network";
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->Coordinate_plane_PictureBox))->EndInit();
@@ -301,7 +376,10 @@ namespace SingleLayerNeruronNetwork {
 			this->groupBox1->PerformLayout();
 			this->groupBox2->ResumeLayout(false);
 			this->groupBox2->PerformLayout();
+			this->menuStrip1->ResumeLayout(false);
+			this->menuStrip1->PerformLayout();
 			this->ResumeLayout(false);
+			this->PerformLayout();
 
 		}
 #pragma endregion
@@ -395,6 +473,59 @@ namespace SingleLayerNeruronNetwork {
 		}
 		else {
 			MessageBox::Show("You need to first specify total class number then you can add sample for desired class id.");
+		}
+	}
+
+//##############################################################################################################################################################################################################
+
+	// when user click on precetron learning from toolbar
+	private: System::Void perceptronLearningBinaryFuncToolStripMenuItem_Click(System::Object^ sender, System::EventArgs^ e) {
+		set_random_value_to_array(weight_array, weight_array_length);
+		int cycle = 100000;
+		bool stop_training = false;
+
+		int* training_return_values = new int[total_points];
+		int cycle_count;
+		for (cycle_count = 0; cycle_count < cycle; cycle_count++) {
+			stop_training = true;
+			for (int i = 0; i < total_points; i++) {
+				training_return_values[i] = perceptron_learning(points[i], weight_array, dimension, total_class_number);
+			}
+
+			for (int j = 0; j < total_points; j++) {
+				if (training_return_values[j] == 0) {
+					stop_training = false;
+				}
+			}
+			if (stop_training) {
+				break;
+			}
+		}
+
+		cycle_count_label->Text = cycle_count.ToString();
+		for (int i = 0; i < total_class_number; i++) {
+
+			Pen^ pen;
+			switch (i) {
+			case 0: pen = gcnew Pen(Color::Red, 3.0f); break;
+			case 1: pen = gcnew Pen(Color::Green, 3.0f); break;
+			case 2: pen = gcnew Pen(Color::Blue, 3.0f); break;
+			case 3: pen = gcnew Pen(Color::Yellow, 3.0f); break;
+			case 4: pen = gcnew Pen(Color::Pink, 3.0f); break;
+			case 5: pen = gcnew Pen(Color::Orange, 3.0f); break;
+			case 6: pen = gcnew Pen(Color::Aqua, 3.0f); break;
+			case 7: pen = gcnew Pen(Color::Brown, 3.0f); break;
+			case 8: pen = gcnew Pen(Color::Purple, 3.0f); break;
+			default: pen = gcnew Pen(Color::Black, 3.0f);
+			}
+
+			int min_x, min_y, max_x, max_y;
+			min_x = (this->Coordinate_plane_PictureBox->Width) / -2;
+			min_y = find_y_point(min_x, &weight_array[i * (dimension + 1)]);
+			max_x = (this->Coordinate_plane_PictureBox->Width) / 2;
+			max_y = find_y_point(max_x, &weight_array[i * (dimension + 1)]);
+			Coordinate_plane_PictureBox->CreateGraphics()->DrawLine(pen, max_x + min_x, (Coordinate_plane_PictureBox->Height / 2) - min_y, max_x + max_x, (Coordinate_plane_PictureBox->Height / 2) - max_y);
+
 		}
 	}
 };

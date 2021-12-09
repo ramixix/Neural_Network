@@ -38,3 +38,22 @@ Sample* add_sample_to_points(Sample* points, int total_point, float x1, float x2
 	delete[] points;
 	return new_points;
 }
+
+//#####################################################################################################################################
+
+// find x2 in equation w0*x1 + w1*x2 + w3 = 0
+// x2 = (-w3 - w0*x1) / w1
+int find_y_point(int x, double w[]) {
+	return (int)((double)(-1 * 1.0 * w[2] - w[0] * x) / (double)(w[1]));
+}
+
+//#####################################################################################################################################
+
+// set random value as initial weights.
+void set_random_value_to_array(double* array, int array_length) {
+	srand(time(NULL));
+	for (int i = 0; i < array_length; i++) {
+		array[i] = (double)rand() / (double)RAND_MAX;
+	}
+
+}

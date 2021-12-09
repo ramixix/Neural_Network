@@ -10,3 +10,5 @@ struct Sample {
 
 bool check_combobox_selection(char combobox_value);
 Sample* add_sample_to_points(Sample* points, int total_point, float x1, float x2, int class_id, int dimension);
+int find_y_point(int x, double w[]);
+void set_random_value_to_array(double* array, int array_length);
