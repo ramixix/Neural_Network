@@ -1,5 +1,5 @@
 #pragma once
-#include "Utils.h"
+#include "Network.h"
 
 namespace MultiLayerNeuronNetwork {
 
@@ -173,13 +173,13 @@ namespace MultiLayerNeuronNetwork {
 			// readToolStripMenuItem
 			// 
 			this->readToolStripMenuItem->Name = L"readToolStripMenuItem";
-			this->readToolStripMenuItem->Size = System::Drawing::Size(102, 22);
+			this->readToolStripMenuItem->Size = System::Drawing::Size(180, 22);
 			this->readToolStripMenuItem->Text = L"Read";
 			// 
 			// writeToolStripMenuItem
 			// 
 			this->writeToolStripMenuItem->Name = L"writeToolStripMenuItem";
-			this->writeToolStripMenuItem->Size = System::Drawing::Size(102, 22);
+			this->writeToolStripMenuItem->Size = System::Drawing::Size(180, 22);
 			this->writeToolStripMenuItem->Text = L"Write";
 			// 
 			// trainToolStripMenuItem
@@ -197,6 +197,7 @@ namespace MultiLayerNeuronNetwork {
 			this->stochasticGradientDescentSGDToolStripMenuItem->Name = L"stochasticGradientDescentSGDToolStripMenuItem";
 			this->stochasticGradientDescentSGDToolStripMenuItem->Size = System::Drawing::Size(363, 22);
 			this->stochasticGradientDescentSGDToolStripMenuItem->Text = L"Stochastic Gradient Descent (SGD)";
+			this->stochasticGradientDescentSGDToolStripMenuItem->Click += gcnew System::EventHandler(this, &MyForm::stochasticGradientDescentSGDToolStripMenuItem_Click);
 			// 
 			// stochasticGradientDescentWithMomentSGDToolStripMenuItem
 			// 
@@ -686,6 +687,13 @@ namespace MultiLayerNeuronNetwork {
 			delete[]points;
 			points = NULL;
 		}
+	}
+//##############################################################################################################################################################################################################
+	
+	private: System::Void stochasticGradientDescentSGDToolStripMenuItem_Click(System::Object^ sender, System::EventArgs^ e) {
+		Neural_Network* my_network = (Neural_Network *)malloc(sizeof(Neural_Network));
+		create_network(my_network, dimension, number_of_hidden_layers, neurons_number_in_each_hidden_layer, total_class_number);
+		initiate_all_layers(my_network->layers, dimension, number_of_hidden_layers, neurons_number_in_each_hidden_layer, total_class_number);
 	}
 };
 }

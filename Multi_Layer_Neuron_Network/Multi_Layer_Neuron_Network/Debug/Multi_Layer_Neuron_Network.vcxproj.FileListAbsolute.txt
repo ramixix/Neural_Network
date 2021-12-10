@@ -1,2 +1,3 @@
 D:\Neural_Network\Neural_Network\Multi_Layer_Neuron_Network\Multi_Layer_Neuron_Network\Debug\MultiLayerNeuronNetwork.MyForm.resources
 D:\Neural_Network\Neural_Network\Multi_Layer_Neuron_Network\Multi_Layer_Neuron_Network\Debug\Multi_Layer_Neuron_Network.vcxproj.GenerateResource.cache
+D:\Neural_Network\Neural_Network\Multi_Layer_Neuron_Network\Multi_Layer_Neuron_Network\Debug\Multi_Layer_Neuron_Network.vcxproj.AssemblyReference.cache

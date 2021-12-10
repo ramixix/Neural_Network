@@ -1,8 +1,13 @@
 ﻿  MyForm.cpp
-D:\Neural_Network\Neural_Network\Multi_Layer_Neuron_Network\Multi_Layer_Neuron_Network\MyForm.h(617,73): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
-D:\Neural_Network\Neural_Network\Multi_Layer_Neuron_Network\Multi_Layer_Neuron_Network\MyForm.h(617,57): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
-D:\Neural_Network\Neural_Network\Multi_Layer_Neuron_Network\Multi_Layer_Neuron_Network\MyForm.h(655,15): warning C4244: 'initializing': conversion from 'double' to 'int', possible loss of data
+D:\Neural_Network\Neural_Network\Multi_Layer_Neuron_Network\Multi_Layer_Neuron_Network\MyForm.h(618,73): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
+D:\Neural_Network\Neural_Network\Multi_Layer_Neuron_Network\Multi_Layer_Neuron_Network\MyForm.h(618,57): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
 D:\Neural_Network\Neural_Network\Multi_Layer_Neuron_Network\Multi_Layer_Neuron_Network\MyForm.h(656,15): warning C4244: 'initializing': conversion from 'double' to 'int', possible loss of data
+D:\Neural_Network\Neural_Network\Multi_Layer_Neuron_Network\Multi_Layer_Neuron_Network\MyForm.h(657,15): warning C4244: 'initializing': conversion from 'double' to 'int', possible loss of data
 D:\Neural_Network\Neural_Network\Multi_Layer_Neuron_Network\Multi_Layer_Neuron_Network\MyForm.cpp(9,33): warning C4829: Possibly incorrect parameters to function main. Consider 'int main(Platform::Array<Platform::String^>^ argv)'
+  Network.cpp
+  Utils.cpp
+D:\Neural_Network\Neural_Network\Multi_Layer_Neuron_Network\Multi_Layer_Neuron_Network\Utils.cpp(20,23): warning C4018: '<': signed/unsigned mismatch
+D:\Neural_Network\Neural_Network\Multi_Layer_Neuron_Network\Multi_Layer_Neuron_Network\Utils.cpp(53,12): warning C4244: 'argument': conversion from 'time_t' to 'unsigned int', possible loss of data
+  Generating Code...
   MyForm.obj : MSIL module encountered; incremental linking is disabled for MSIL; performing full link
   Multi_Layer_Neuron_Network.vcxproj -> D:\Neural_Network\Neural_Network\Multi_Layer_Neuron_Network\Debug\Multi_Layer_Neuron_Network.exe
