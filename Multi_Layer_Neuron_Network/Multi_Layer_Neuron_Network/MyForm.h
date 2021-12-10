@@ -694,6 +694,22 @@ namespace MultiLayerNeuronNetwork {
 		Neural_Network* my_network = (Neural_Network *)malloc(sizeof(Neural_Network));
 		create_network(my_network, dimension, number_of_hidden_layers, neurons_number_in_each_hidden_layer, total_class_number);
 		initiate_all_layers(my_network->layers, dimension, number_of_hidden_layers, neurons_number_in_each_hidden_layer, total_class_number);
+
+		z_score_normalization(points, total_points);
+		double norm_error = 0.0;
+		double max_error = 0.2;
+		double error = 0.0;
+		int cycles = 100000;
+		int cycle_count = 0;
+
+		do {
+			error = 0.0;
+			for (int p; p < total_points; p++) {
+				error += train(points[p], my_network, my_network->layers);
+			}
+
+			cycle_count += 1;
+		} while (norm_error > 0.2 && cycles > cycle_count);
 	}
 };
 }

@@ -89,3 +89,10 @@ void z_score_normalization(Sample* points, int total_point) {
 
 	}
 }
+
+//#####################################################################################################################################
+
+double sigmoid(double net, int lambda) {
+	return (2.0 / (1.0 + exp(lambda * (-net)))) - 1;
+	//return (1.0 / (1.0 + exp(lambda * (-net) ) ));
+}
