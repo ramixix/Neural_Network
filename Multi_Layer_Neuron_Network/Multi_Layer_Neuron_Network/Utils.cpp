@@ -96,3 +96,10 @@ double sigmoid(double net, int lambda) {
 	return (2.0 / (1.0 + exp(lambda * (-net)))) - 1;
 	//return (1.0 / (1.0 + exp(lambda * (-net) ) ));
 }
+
+//#####################################################################################################################################
+
+double sigmoidDerivative(double net, int lambda) {
+	return 0.5 * (1 - pow(sigmoid(net, lambda), 2));
+	//return sigmoid(net, lambda) * (1 - sigmoid(net, lambda));
+}

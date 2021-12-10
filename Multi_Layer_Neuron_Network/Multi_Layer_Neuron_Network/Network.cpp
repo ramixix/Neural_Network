@@ -57,8 +57,8 @@ void initiate_all_layers(Layer* all_layers, int input_num, int  hidden_layers_nu
 
 double train(Sample point, Neural_Network* my_network, Layer* all_layers) {
 	double total_error = 0;
-	SGD_feed_forward(point, my_network, all_layers, total_error);
-	total_error = SGD_back_propagation(point, my_network, all_layers);
+	total_error += SGD_feed_forward(point, my_network, all_layers);
+	SGD_back_propagation(point, my_network, all_layers);
 	return total_error;
 
 }
@@ -66,7 +66,7 @@ double train(Sample point, Neural_Network* my_network, Layer* all_layers) {
 //##############################################################################################################################################################################################################
 
 // in feed_forward we calculate outputs for all layers in our network
-void SGD_feed_forward(Sample point, Neural_Network* my_network, Layer* all_layers, double error) {
+double SGD_feed_forward(Sample point, Neural_Network* my_network, Layer* all_layers) {
 	// start form layer 1. calculate net and output;
 	for (int i = 0; i < all_layers[0].number_of_neurons; i++) {
 		for (int j = 0; j < all_layers[0].number_of_inputs - 1 ; j++) {
@@ -104,6 +104,7 @@ void SGD_feed_forward(Sample point, Neural_Network* my_network, Layer* all_layer
 		all_layers[last_layer_index].net[i] += all_layers[last_layer_index].weights[i * (all_layers[last_layer_index].number_of_inputs) + (all_layers[last_layer_index].number_of_inputs - 1)] * all_layers[last_layer_index].bias;
 	}
 
+	double error = 0.0;
 	for (int i = 0; i < all_layers[last_layer_index].number_of_neurons; i++) {
 		all_layers[last_layer_index].output[i] = sigmoid(all_layers[last_layer_index].net[i], all_layers[last_layer_index].lambda);
 
@@ -114,12 +115,50 @@ void SGD_feed_forward(Sample point, Neural_Network* my_network, Layer* all_layer
 		
 		error += pow((desired_output - all_layers[last_layer_index].output[i]), 2);
 	}
+	return error;
 }
 
 //##############################################################################################################################################################################################################
 
-double SGD_back_propagation(Sample point, Neural_Network* my_network, Layer* all_layers) {
+void SGD_back_propagation(Sample point, Neural_Network* my_network, Layer* all_layers) {
+	// start from last layer (output layer)
+	int last_layer_index = my_network->number_of_layers - 1;
+	int desired_output;
+	// first of all we calculate the back error and put it in S array.
+	for (int neuron_index = 0; neuron_index < all_layers[last_layer_index].number_of_neurons; neuron_index++) {
+		if (point.class_id == neuron_index)
+			desired_output = 1;
+		else
+			desired_output = -1;
+		all_layers[last_layer_index].S[neuron_index] = (desired_output - all_layers[last_layer_index].output[neuron_index]) * sigmoidDerivative(all_layers[last_layer_index].net[neuron_index], all_layers[last_layer_index].lambda); // (dk-ok)*f`(netk)
 
+		for (int j = 0; j < all_layers[last_layer_index].number_of_inputs - 1; j++) {
+			all_layers[last_layer_index].weights[neuron_index * (all_layers[last_layer_index].number_of_inputs) + j] += all_layers[last_layer_index].learning_constant * all_layers[last_layer_index].S[neuron_index] * all_layers[last_layer_index - 1].output[j];
+		}
+		all_layers[last_layer_index].weights[neuron_index * (all_layers[last_layer_index].number_of_inputs) + (all_layers[last_layer_index].number_of_inputs - 1)] += all_layers[last_layer_index].learning_constant * all_layers[last_layer_index].S[neuron_index] * all_layers[last_layer_index - 1].bias;
+	}
+
+	// all the hidden layers before the last layer
+	// goes from last to first ( except first layer )
+	int last_hidden_layer_index = last_layer_index - 1;
+	for (int index_layer = last_hidden_layer_index; index_layer > 0; index_layer--) {
+		
+		for (int neuron_index = 0; neuron_index < all_layers[index_layer].number_of_neurons; neuron_index++) {
+			int S_next = 0.0;
+			for (int k = 0; k < all_layers[index_layer + 1].number_of_neurons; k++) {
+				S_next += all_layers[index_layer + 1].S[k] * all_layers[index_layer+1].weights[k * (all_layers[index_layer+1].number_of_inputs) + neuron_index];
+			}
+
+			all_layers[index_layer].S[neuron_index] = S_next * sigmoidDerivative(all_layers[index_layer].net[neuron_index], all_layers[index_layer].lambda);
+			
+			for (int j = 0; j < all_layers[index_layer].number_of_inputs - 1; j++) {
+				all_layers[index_layer].weights[neuron_index * (all_layers[index_layer].number_of_inputs) + j] += all_layers[index_layer].learning_constant * all_layers[index_layer].S[neuron_index] * all_layers[index_layer - 1].output[j];
+			}
+			all_layers[index_layer].weights[neuron_index * (all_layers[index_layer].number_of_inputs) + (all_layers[index_layer].number_of_inputs - 1)] += all_layers[index_layer].learning_constant * all_layers[index_layer].S[neuron_index] * all_layers[index_layer - 1].bias;
+		}
+	}
+
+	// the first layer
 }
 
 //##############################################################################################################################################################################################################
