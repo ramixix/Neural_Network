@@ -28,3 +28,4 @@ void initiate_all_layers(Layer *all_layers, int dimension, int  number_of_hidden
 double train(Sample point, Neural_Network *my_network, Layer *all_layers);
 double SGD_feed_forward(Sample point, Neural_Network* my_network, Layer *all_layers);
 void SGD_back_propagation(Sample point, Neural_Network* my_network, Layer* all_layers);
+double RMSE(double total_error, int total_points, int total_neurons_number);

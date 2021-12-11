@@ -135,7 +135,7 @@ void SGD_back_propagation(Sample point, Neural_Network* my_network, Layer* all_l
 		for (int j = 0; j < all_layers[last_layer_index].number_of_inputs - 1; j++) {
 			all_layers[last_layer_index].weights[neuron_index * (all_layers[last_layer_index].number_of_inputs) + j] += all_layers[last_layer_index].learning_constant * all_layers[last_layer_index].S[neuron_index] * all_layers[last_layer_index - 1].output[j];
 		}
-		all_layers[last_layer_index].weights[neuron_index * (all_layers[last_layer_index].number_of_inputs) + (all_layers[last_layer_index].number_of_inputs - 1)] += all_layers[last_layer_index].learning_constant * all_layers[last_layer_index].S[neuron_index] * all_layers[last_layer_index - 1].bias;
+		all_layers[last_layer_index].weights[neuron_index * (all_layers[last_layer_index].number_of_inputs) + (all_layers[last_layer_index].number_of_inputs - 1)] += all_layers[last_layer_index].learning_constant * all_layers[last_layer_index].S[neuron_index] * all_layers[last_layer_index].bias;
 	}
 
 	// all the hidden layers before the last layer
@@ -154,15 +154,29 @@ void SGD_back_propagation(Sample point, Neural_Network* my_network, Layer* all_l
 			for (int j = 0; j < all_layers[index_layer].number_of_inputs - 1; j++) {
 				all_layers[index_layer].weights[neuron_index * (all_layers[index_layer].number_of_inputs) + j] += all_layers[index_layer].learning_constant * all_layers[index_layer].S[neuron_index] * all_layers[index_layer - 1].output[j];
 			}
-			all_layers[index_layer].weights[neuron_index * (all_layers[index_layer].number_of_inputs) + (all_layers[index_layer].number_of_inputs - 1)] += all_layers[index_layer].learning_constant * all_layers[index_layer].S[neuron_index] * all_layers[index_layer - 1].bias;
+			all_layers[index_layer].weights[neuron_index * (all_layers[index_layer].number_of_inputs) + (all_layers[index_layer].number_of_inputs - 1)] += all_layers[index_layer].learning_constant * all_layers[index_layer].S[neuron_index] * all_layers[index_layer].bias;
 		}
 	}
 
 	// the first layer
+	for (int neuron_index = 0; neuron_index < all_layers[0].number_of_neurons; neuron_index++) {
+		int S_next = 0.0;
+		for (int j = 0; j < all_layers[1].number_of_neurons; j++) {
+			S_next += all_layers[1].S[j] * all_layers[1].weights[j * (all_layers[1].number_of_inputs) + neuron_index];
+		}
+		all_layers[0].S[neuron_index] = S_next * sigmoidDerivative(all_layers[0].net[neuron_index], all_layers[0].lambda);
+		for (int k = 0; k < all_layers[0].number_of_inputs - 1; k++) {
+			all_layers[0].weights[neuron_index * all_layers[0].number_of_inputs + k] += all_layers[0].learning_constant * all_layers[0].S[neuron_index] * point.x_coordinates[k];
+		}
+		all_layers[0].weights[neuron_index * all_layers[0].number_of_inputs + (all_layers[0].number_of_inputs - 1)] += all_layers[0].learning_constant * all_layers[0].S[neuron_index] * all_layers[0].bias;
+	}
 }
 
 //##############################################################################################################################################################################################################
 
+double RMSE(double total_error, int total_points, int total_neurons_number) {
+	return (double)(sqrt(0.5 * total_error) / (total_points * total_neurons_number));
+}
 
 //##############################################################################################################################################################################################################
 

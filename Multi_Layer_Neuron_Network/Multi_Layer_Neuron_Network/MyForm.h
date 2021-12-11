@@ -87,6 +87,8 @@ namespace MultiLayerNeuronNetwork {
 		short int number_of_hidden_layers;
 		short int neurons_number_in_each_hidden_layer;
 		int total_layers = 0;
+	private: System::Windows::Forms::Label^ Error_lable;
+	private: System::Windows::Forms::Label^ label10;
 
 
 		System::ComponentModel::Container ^components;
@@ -129,6 +131,8 @@ namespace MultiLayerNeuronNetwork {
 			this->label4 = (gcnew System::Windows::Forms::Label());
 			this->total_sample_label = (gcnew System::Windows::Forms::Label());
 			this->label3 = (gcnew System::Windows::Forms::Label());
+			this->label10 = (gcnew System::Windows::Forms::Label());
+			this->Error_lable = (gcnew System::Windows::Forms::Label());
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->Coordinate_plane_PictureBox))->BeginInit();
 			this->menuStrip1->SuspendLayout();
 			this->groupBox1->SuspendLayout();
@@ -173,13 +177,13 @@ namespace MultiLayerNeuronNetwork {
 			// readToolStripMenuItem
 			// 
 			this->readToolStripMenuItem->Name = L"readToolStripMenuItem";
-			this->readToolStripMenuItem->Size = System::Drawing::Size(180, 22);
+			this->readToolStripMenuItem->Size = System::Drawing::Size(102, 22);
 			this->readToolStripMenuItem->Text = L"Read";
 			// 
 			// writeToolStripMenuItem
 			// 
 			this->writeToolStripMenuItem->Name = L"writeToolStripMenuItem";
-			this->writeToolStripMenuItem->Size = System::Drawing::Size(180, 22);
+			this->writeToolStripMenuItem->Size = System::Drawing::Size(102, 22);
 			this->writeToolStripMenuItem->Text = L"Write";
 			// 
 			// trainToolStripMenuItem
@@ -370,6 +374,8 @@ namespace MultiLayerNeuronNetwork {
 			// 
 			// groupBox2
 			// 
+			this->groupBox2->Controls->Add(this->Error_lable);
+			this->groupBox2->Controls->Add(this->label10);
 			this->groupBox2->Controls->Add(this->cycle_count_label);
 			this->groupBox2->Controls->Add(this->label7);
 			this->groupBox2->Controls->Add(this->x2_label);
@@ -393,7 +399,7 @@ namespace MultiLayerNeuronNetwork {
 			this->cycle_count_label->AutoSize = true;
 			this->cycle_count_label->Font = (gcnew System::Drawing::Font(L"Arial", 8.25F, static_cast<System::Drawing::FontStyle>((System::Drawing::FontStyle::Bold | System::Drawing::FontStyle::Italic)),
 				System::Drawing::GraphicsUnit::Point, static_cast<System::Byte>(0)));
-			this->cycle_count_label->Location = System::Drawing::Point(233, 146);
+			this->cycle_count_label->Location = System::Drawing::Point(233, 132);
 			this->cycle_count_label->Name = L"cycle_count_label";
 			this->cycle_count_label->Size = System::Drawing::Size(11, 13);
 			this->cycle_count_label->TabIndex = 11;
@@ -404,7 +410,7 @@ namespace MultiLayerNeuronNetwork {
 			this->label7->AutoSize = true;
 			this->label7->Font = (gcnew System::Drawing::Font(L"Sitka Small", 8.25F, static_cast<System::Drawing::FontStyle>((System::Drawing::FontStyle::Bold | System::Drawing::FontStyle::Italic)),
 				System::Drawing::GraphicsUnit::Point, static_cast<System::Byte>(0)));
-			this->label7->Location = System::Drawing::Point(7, 143);
+			this->label7->Location = System::Drawing::Point(5, 129);
 			this->label7->Name = L"label7";
 			this->label7->Size = System::Drawing::Size(220, 16);
 			this->label7->TabIndex = 10;
@@ -486,6 +492,28 @@ namespace MultiLayerNeuronNetwork {
 			this->label3->Size = System::Drawing::Size(163, 16);
 			this->label3->TabIndex = 0;
 			this->label3->Text = L"Total Number Of Samples :";
+			// 
+			// label10
+			// 
+			this->label10->AutoSize = true;
+			this->label10->Font = (gcnew System::Drawing::Font(L"Sitka Small", 8.25F, static_cast<System::Drawing::FontStyle>((System::Drawing::FontStyle::Bold | System::Drawing::FontStyle::Italic)),
+				System::Drawing::GraphicsUnit::Point, static_cast<System::Byte>(0)));
+			this->label10->Location = System::Drawing::Point(6, 163);
+			this->label10->Name = L"label10";
+			this->label10->Size = System::Drawing::Size(49, 16);
+			this->label10->TabIndex = 12;
+			this->label10->Text = L"Error :";
+			// 
+			// Error_lable
+			// 
+			this->Error_lable->AutoSize = true;
+			this->Error_lable->Font = (gcnew System::Drawing::Font(L"Arial", 8.25F, static_cast<System::Drawing::FontStyle>((System::Drawing::FontStyle::Bold | System::Drawing::FontStyle::Italic)),
+				System::Drawing::GraphicsUnit::Point, static_cast<System::Byte>(0)));
+			this->Error_lable->Location = System::Drawing::Point(61, 166);
+			this->Error_lable->Name = L"Error_lable";
+			this->Error_lable->Size = System::Drawing::Size(11, 13);
+			this->Error_lable->TabIndex = 13;
+			this->Error_lable->Text = L"-";
 			// 
 			// MyForm
 			// 
@@ -698,18 +726,76 @@ namespace MultiLayerNeuronNetwork {
 		z_score_normalization(points, total_points);
 		double norm_error = 0.0;
 		double max_error = 0.2;
-		double error = 0.0;
+		double total_error = 0.0;
 		int cycles = 100000;
 		int cycle_count = 0;
 
 		do {
-			error = 0.0;
+			total_error = 0.0;
 			for (int p; p < total_points; p++) {
-				error += train(points[p], my_network, my_network->layers);
+				total_error += train(points[p], my_network, my_network->layers);
 			}
 
+			norm_error = RMSE(total_error, total_points, my_network->total_neuron_number);
+			Error_lable->Text = Convert::ToString(norm_error);
+			Error_lable->Refresh();
+
 			cycle_count += 1;
-		} while (norm_error > 0.2 && cycles > cycle_count);
+		} while (norm_error > 0.001 && cycles > cycle_count);
+
+		cycle_count_label->Text = cycle_count.ToString();
+		Coordinate_plane_PictureBox->Refresh();
+
+		int min_x, min_y, max_x, max_y;
+		min_x = (this->Coordinate_plane_PictureBox->Width) / -2;
+		max_x = (this->Coordinate_plane_PictureBox->Width) / 2;
+
+		for (int neuron_index = 0; neuron_index < my_network->layers[0].number_of_neurons; neuron_index++) {
+
+			Pen^ pen;
+			switch (neuron_index) {
+			case 0: pen = gcnew Pen(Color::Red, 3.0f); break;
+			case 1: pen = gcnew Pen(Color::Green, 3.0f); break;
+			case 2: pen = gcnew Pen(Color::Blue, 3.0f); break;
+			case 3: pen = gcnew Pen(Color::Yellow, 3.0f); break;
+			case 4: pen = gcnew Pen(Color::Pink, 3.0f); break;
+			case 5: pen = gcnew Pen(Color::Orange, 3.0f); break;
+			case 6: pen = gcnew Pen(Color::Aqua, 3.0f); break;
+			case 7: pen = gcnew Pen(Color::Brown, 3.0f); break;
+			case 8: pen = gcnew Pen(Color::Purple, 3.0f); break;
+			default: pen = gcnew Pen(Color::Black, 3.0f);
+			}
+
+			min_y = find_y_point(min_x, &weight_array[neuron_index * (dimension + 1)], 100);
+			max_y = find_y_point(max_x, &weight_array[neuron_index * (dimension + 1)], 100);
+			Coordinate_plane_PictureBox->CreateGraphics()->DrawLine(pen, (Coordinate_plane_PictureBox->Width / 2) + min_x, (Coordinate_plane_PictureBox->Height / 2) - min_y, (Coordinate_plane_PictureBox->Width / 2) + max_x, (Coordinate_plane_PictureBox->Height / 2) - max_y);
+
+		}
+
+		
+		for (int i = 0; i < total_points; i++) {
+
+			int pure_x = points[i].x_coordinates[0]* 100 + (Coordinate_plane_PictureBox->Width / 2);
+			int pure_y = (Coordinate_plane_PictureBox->Height / 2) - points[i].x_coordinates[1]*100;
+
+			Pen^ pen;
+			switch (points[i].class_id) {
+			case 0: pen = gcnew Pen(Color::Red, 3.0f); break;
+			case 1: pen = gcnew Pen(Color::Green, 3.0f); break;
+			case 2: pen = gcnew Pen(Color::Blue, 3.0f); break;
+			case 3: pen = gcnew Pen(Color::Yellow, 3.0f); break;
+			case 4: pen = gcnew Pen(Color::Pink, 3.0f); break;
+			case 5: pen = gcnew Pen(Color::Orange, 3.0f); break;
+			case 6: pen = gcnew Pen(Color::Aqua, 3.0f); break;
+			case 7: pen = gcnew Pen(Color::Brown, 3.0f); break;
+			case 8: pen = gcnew Pen(Color::Purple, 3.0f); break;
+			default: pen = gcnew Pen(Color::Black, 3.0f);
+			}
+
+			Coordinate_plane_PictureBox->CreateGraphics()->DrawLine(pen, pure_x - 5, pure_y, pure_x + 5, pure_y);
+			Coordinate_plane_PictureBox->CreateGraphics()->DrawLine(pen, pure_x, pure_y - 5, pure_x, pure_y + 5);
+
+		}
 	}
 };
 }
