@@ -913,7 +913,7 @@ namespace MultiLayerNeuronNetwork {
 		do {
 			total_error = 0.0;
 			for (int p = 0; p < total_points; p++) {
-				total_error += train(points[p], my_network, my_network->layers);
+				total_error += train(points[p], my_network, my_network->layers, train_type);
 			}
 
 			norm_error = RMSE(total_error, total_points, my_network->total_neuron_number);
@@ -994,7 +994,7 @@ namespace MultiLayerNeuronNetwork {
 		do {
 			total_error = 0.0;
 			for (int p = 0; p < total_points; p++) {
-				total_error += train(points[p], my_network, my_network->layers);
+				total_error += train(points[p], my_network, my_network->layers, train_type);
 			}
 
 			norm_error = RMSE(total_error, total_points, my_network->total_neuron_number);
