@@ -1,7 +1,7 @@
 #include "Network.h"
 
 
-void create_network(Neural_Network* my_network, int input_num, int hidden_layers_num, int neurons_number_in_each_hidden_layer, int output_num) {
+void create_network(Neural_Network* my_network, int input_num, int hidden_layers_num, int neurons_number_in_each_hidden_layer, int output_num, int train_type) {
 	int total_layers_num = hidden_layers_num + 1;  // the total layer of network is equal to == number of hidden layers + output layer ===> hidden_layers + 1
 	my_network->number_of_inputs = input_num;
 	my_network->number_of_layers = total_layers_num;
@@ -14,6 +14,8 @@ void create_network(Neural_Network* my_network, int input_num, int hidden_layers
 		my_network->total_neuron_number += neurons_number_in_each_hidden_layer;
 	}
 	my_network->total_neuron_number += output_num;
+
+	initiate_all_layers(my_network->layers, input_num, hidden_layers_num, neurons_number_in_each_hidden_layer, output_num);
 }
 
 //##############################################################################################################################################################################################################
@@ -36,7 +38,7 @@ void initiate_all_layers(Layer* all_layers, int input_num, int  hidden_layers_nu
 	// set learning constant for each layer
 	all_layers[0].learning_constant = 0.1f;
 	for (int i = 1; i < total_layers_num; i++) {
-		all_layers[i].learning_constant = all_layers[i - 1].learning_constant ;
+		all_layers[i].learning_constant = all_layers[i - 1].learning_constant + 0.001f;
 	}
 
 	// calculate weight matrix size for every layer ( weight size for each layer = number of neuron in that layer * (number of inputs + 1) )
@@ -53,39 +55,12 @@ void initiate_all_layers(Layer* all_layers, int input_num, int  hidden_layers_nu
 		all_layers[i].net = (double*)malloc(sizeof(double) * all_layers[i].number_of_neurons);
 		all_layers[i].output = (double*)malloc(sizeof(double) * all_layers[i].number_of_neurons);
 		all_layers[i].S = (double*)malloc(sizeof(double) * all_layers[i].number_of_neurons);
-
-		//for (int j = 0; j < all_layers[i].number_of_neurons; j++) {
-		//	all_layers[i].net[j] = 0.0;
-		//	all_layers[i].output[j] = 0.0;
-		//	all_layers[i].S[j] = 0.0;
-		//}
 	}
 }
 
 //##############################################################################################################################################################################################################
 
 double train(Sample point, Neural_Network* my_network, Layer* all_layers) {
-	double a = point.x_coordinates[0];
-	double aa = point.x_coordinates[1];
-	double w0 = all_layers[0].weights[0];
-	double w1 = all_layers[0].weights[1];
-	double w2 = all_layers[0].weights[2];
-	double w3 = all_layers[0].weights[3];
-	double w4 = all_layers[0].weights[4];
-	double w5 = all_layers[0].weights[5];
-	double w6 = all_layers[0].weights[6];
-	double w7 = all_layers[0].weights[7];
-	double w8 = all_layers[0].weights[8];
-
-	double ww0 = all_layers[1].weights[0];
-	double ww1 = all_layers[1].weights[1];
-	double ww2 = all_layers[1].weights[2];
-	double ww3 = all_layers[1].weights[3];
-	double ww4 = all_layers[1].weights[4];
-	double ww5 = all_layers[1].weights[5];
-	double ww6 = all_layers[1].weights[6];
-	double ww7 = all_layers[1].weights[7];
-
 	double total_error = 0;
 	total_error = SGD_feed_forward(point, my_network, all_layers);
 	SGD_back_propagation(point, my_network, all_layers);
@@ -255,8 +230,6 @@ void reset_net_values(Layer* all_layers, int total_layers) {
 	for (int layer_index = 0; layer_index < total_layers; layer_index++) {
 		for (int neuron_index = 0; neuron_index < all_layers[layer_index].number_of_neurons; neuron_index++) {
 			all_layers[layer_index].net[neuron_index] = 0.0;
-			all_layers[layer_index].output[neuron_index] = 0.0;
-			all_layers[layer_index].S[neuron_index] = 0.0;
 		}
 	}
 }

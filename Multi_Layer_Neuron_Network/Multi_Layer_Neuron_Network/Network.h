@@ -23,7 +23,7 @@ typedef struct Neural_Network {
 	Layer* layers;
 }Neural_Network;
 
-void create_network(Neural_Network *my_network, int input_num, int hidden_layer_num, int neurons_number_in_each_hidden_layer, int output_num);
+void create_network(Neural_Network *my_network, int input_num, int hidden_layer_num, int neurons_number_in_each_hidden_layer, int output_num, int train_type);
 void initiate_all_layers(Layer *all_layers, int dimension, int  number_of_hidden_layers, int neurons_number_in_each_hidden_layer, int total_class_number);
 double train(Sample point, Neural_Network *my_network, Layer *all_layers);
 double SGD_feed_forward(Sample point, Neural_Network* my_network, Layer *all_layers);

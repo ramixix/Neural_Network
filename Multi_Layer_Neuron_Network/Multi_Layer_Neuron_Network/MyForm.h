@@ -25,6 +25,7 @@ namespace MultiLayerNeuronNetwork {
 			this->class_id_combo_box->Enabled = false;
 			this->hidden_layers_num_combo_box->Enabled = false;
 			this->hidden_neurons_num_combo_box->Enabled = false;
+			this->Training_type_combo_box->Enabled = false;
 			this->set_button->ForeColor = Color::Red;
 		}
 
@@ -55,7 +56,7 @@ namespace MultiLayerNeuronNetwork {
 	private: System::Windows::Forms::Label^ label9;
 	private: System::Windows::Forms::ComboBox^ hidden_layers_num_combo_box;
 	private: System::Windows::Forms::Label^ label8;
-	private: System::Windows::Forms::Button^ clear_lines;
+
 	private: System::Windows::Forms::Button^ clear_all;
 	private: System::Windows::Forms::ComboBox^ class_id_combo_box;
 	private: System::Windows::Forms::Label^ label2;
@@ -87,6 +88,7 @@ namespace MultiLayerNeuronNetwork {
 		short int number_of_hidden_layers;
 		short int neurons_number_in_each_hidden_layer;
 		int total_layers = 0;
+		int train_type;
 	private: System::Windows::Forms::Label^ Error_lable;
 	private: System::Windows::Forms::Label^ label10;
 	private: System::Windows::Forms::Label^ output_layer_label;
@@ -99,6 +101,10 @@ namespace MultiLayerNeuronNetwork {
 	private: System::Windows::Forms::Label^ label13;
 	private: System::Windows::Forms::Label^ label12;
 	private: System::Windows::Forms::Label^ label11;
+	private: System::Windows::Forms::ComboBox^ Training_type_combo_box;
+	private: System::Windows::Forms::Label^ label15;
+	private: System::Windows::Forms::Button^ start_training_button;
+
 
 
 		System::ComponentModel::Container ^components;
@@ -109,22 +115,6 @@ namespace MultiLayerNeuronNetwork {
 		/// the contents of this method with the code editor.
 		/// </summary>
 		/// 
-//###############################################################################################################################################
-		void set_network_architecture() {
-			// set input (input is not a layer because we get the data from user)
-			input_label->Text = Convert::ToString(dimension);
-
-			// set hidden layer(s)
-			String ^ hidden_layers_text = ""; // multiply by 2 because we put space between each character
-			for (int i = 0; i < number_of_hidden_layers; i++) {
-				hidden_layers_text += (neurons_number_in_each_hidden_layer.ToString() + " ");
-			}
-			hidden_layers_label->Text = Convert::ToString(hidden_layers_text);
-
-			//set output layer
-			output_layer_label->Text = Convert::ToString(total_class_number);
-		}
-//###############################################################################################################################################
 
 		void InitializeComponent(void)
 		{
@@ -138,11 +128,13 @@ namespace MultiLayerNeuronNetwork {
 			this->stochasticGradientDescentSGDToolStripMenuItem = (gcnew System::Windows::Forms::ToolStripMenuItem());
 			this->stochasticGradientDescentWithMomentSGDToolStripMenuItem = (gcnew System::Windows::Forms::ToolStripMenuItem());
 			this->groupBox1 = (gcnew System::Windows::Forms::GroupBox());
+			this->start_training_button = (gcnew System::Windows::Forms::Button());
+			this->Training_type_combo_box = (gcnew System::Windows::Forms::ComboBox());
+			this->label15 = (gcnew System::Windows::Forms::Label());
 			this->hidden_neurons_num_combo_box = (gcnew System::Windows::Forms::ComboBox());
 			this->label9 = (gcnew System::Windows::Forms::Label());
 			this->hidden_layers_num_combo_box = (gcnew System::Windows::Forms::ComboBox());
 			this->label8 = (gcnew System::Windows::Forms::Label());
-			this->clear_lines = (gcnew System::Windows::Forms::Button());
 			this->clear_all = (gcnew System::Windows::Forms::Button());
 			this->class_id_combo_box = (gcnew System::Windows::Forms::ComboBox());
 			this->label2 = (gcnew System::Windows::Forms::Label());
@@ -181,7 +173,7 @@ namespace MultiLayerNeuronNetwork {
 			this->Coordinate_plane_PictureBox->Cursor = System::Windows::Forms::Cursors::Hand;
 			this->Coordinate_plane_PictureBox->Location = System::Drawing::Point(2, 29);
 			this->Coordinate_plane_PictureBox->Name = L"Coordinate_plane_PictureBox";
-			this->Coordinate_plane_PictureBox->Size = System::Drawing::Size(800, 600);
+			this->Coordinate_plane_PictureBox->Size = System::Drawing::Size(800, 700);
 			this->Coordinate_plane_PictureBox->TabIndex = 3;
 			this->Coordinate_plane_PictureBox->TabStop = false;
 			this->Coordinate_plane_PictureBox->Paint += gcnew System::Windows::Forms::PaintEventHandler(this, &MyForm::Coordinate_plane_PictureBox_Paint);
@@ -195,7 +187,7 @@ namespace MultiLayerNeuronNetwork {
 			});
 			this->menuStrip1->Location = System::Drawing::Point(0, 0);
 			this->menuStrip1->Name = L"menuStrip1";
-			this->menuStrip1->Size = System::Drawing::Size(1184, 24);
+			this->menuStrip1->Size = System::Drawing::Size(1234, 24);
 			this->menuStrip1->TabIndex = 4;
 			this->menuStrip1->Text = L"menuStrip1";
 			// 
@@ -246,11 +238,13 @@ namespace MultiLayerNeuronNetwork {
 			// 
 			// groupBox1
 			// 
+			this->groupBox1->Controls->Add(this->start_training_button);
+			this->groupBox1->Controls->Add(this->Training_type_combo_box);
+			this->groupBox1->Controls->Add(this->label15);
 			this->groupBox1->Controls->Add(this->hidden_neurons_num_combo_box);
 			this->groupBox1->Controls->Add(this->label9);
 			this->groupBox1->Controls->Add(this->hidden_layers_num_combo_box);
 			this->groupBox1->Controls->Add(this->label8);
-			this->groupBox1->Controls->Add(this->clear_lines);
 			this->groupBox1->Controls->Add(this->clear_all);
 			this->groupBox1->Controls->Add(this->class_id_combo_box);
 			this->groupBox1->Controls->Add(this->label2);
@@ -259,12 +253,55 @@ namespace MultiLayerNeuronNetwork {
 			this->groupBox1->Controls->Add(this->label1);
 			this->groupBox1->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 9.75F, static_cast<System::Drawing::FontStyle>((System::Drawing::FontStyle::Bold | System::Drawing::FontStyle::Underline)),
 				System::Drawing::GraphicsUnit::Point, static_cast<System::Byte>(0)));
-			this->groupBox1->Location = System::Drawing::Point(831, 39);
+			this->groupBox1->Location = System::Drawing::Point(827, 29);
 			this->groupBox1->Name = L"groupBox1";
-			this->groupBox1->Size = System::Drawing::Size(327, 381);
+			this->groupBox1->Size = System::Drawing::Size(383, 462);
 			this->groupBox1->TabIndex = 5;
 			this->groupBox1->TabStop = false;
 			this->groupBox1->Text = L"Settings";
+			// 
+			// start_training_button
+			// 
+			this->start_training_button->Font = (gcnew System::Drawing::Font(L"Sitka Small", 11.25F, System::Drawing::FontStyle::Bold, System::Drawing::GraphicsUnit::Point,
+				static_cast<System::Byte>(0)));
+			this->start_training_button->ForeColor = System::Drawing::Color::FromArgb(static_cast<System::Int32>(static_cast<System::Byte>(192)),
+				static_cast<System::Int32>(static_cast<System::Byte>(0)), static_cast<System::Int32>(static_cast<System::Byte>(0)));
+			this->start_training_button->Location = System::Drawing::Point(11, 397);
+			this->start_training_button->Name = L"start_training_button";
+			this->start_training_button->Size = System::Drawing::Size(258, 59);
+			this->start_training_button->TabIndex = 14;
+			this->start_training_button->Text = L"Train";
+			this->start_training_button->UseVisualStyleBackColor = true;
+			this->start_training_button->Click += gcnew System::EventHandler(this, &MyForm::start_training_button_Click);
+			// 
+			// Training_type_combo_box
+			// 
+			this->Training_type_combo_box->Font = (gcnew System::Drawing::Font(L"Arial", 8.25F, static_cast<System::Drawing::FontStyle>((System::Drawing::FontStyle::Bold | System::Drawing::FontStyle::Italic)),
+				System::Drawing::GraphicsUnit::Point, static_cast<System::Byte>(0)));
+			this->Training_type_combo_box->ForeColor = System::Drawing::Color::FromArgb(static_cast<System::Int32>(static_cast<System::Byte>(0)),
+				static_cast<System::Int32>(static_cast<System::Byte>(0)), static_cast<System::Int32>(static_cast<System::Byte>(192)));
+			this->Training_type_combo_box->FormattingEnabled = true;
+			this->Training_type_combo_box->ImeMode = System::Windows::Forms::ImeMode::NoControl;
+			this->Training_type_combo_box->Items->AddRange(gcnew cli::array< System::Object^  >(2) {
+				L"Stochastic Gradient Descent (SGD)",
+					L"Stochastic Gradient Descent with Momentum (SGD_M)"
+			});
+			this->Training_type_combo_box->Location = System::Drawing::Point(16, 246);
+			this->Training_type_combo_box->Name = L"Training_type_combo_box";
+			this->Training_type_combo_box->Size = System::Drawing::Size(355, 21);
+			this->Training_type_combo_box->TabIndex = 13;
+			this->Training_type_combo_box->Text = L"None";
+			// 
+			// label15
+			// 
+			this->label15->AutoSize = true;
+			this->label15->Font = (gcnew System::Drawing::Font(L"Arial", 8.25F, static_cast<System::Drawing::FontStyle>((System::Drawing::FontStyle::Bold | System::Drawing::FontStyle::Italic)),
+				System::Drawing::GraphicsUnit::Point, static_cast<System::Byte>(0)));
+			this->label15->Location = System::Drawing::Point(13, 230);
+			this->label15->Name = L"label15";
+			this->label15->Size = System::Drawing::Size(337, 13);
+			this->label15->TabIndex = 12;
+			this->label15->Text = L"Select The Training Type That Want To Train Your Network :";
 			// 
 			// hidden_neurons_num_combo_box
 			// 
@@ -286,11 +323,11 @@ namespace MultiLayerNeuronNetwork {
 			this->label9->AutoSize = true;
 			this->label9->Font = (gcnew System::Drawing::Font(L"Arial", 8.25F, static_cast<System::Drawing::FontStyle>((System::Drawing::FontStyle::Bold | System::Drawing::FontStyle::Italic)),
 				System::Drawing::GraphicsUnit::Point, static_cast<System::Byte>(0)));
-			this->label9->Location = System::Drawing::Point(6, 160);
+			this->label9->Location = System::Drawing::Point(13, 163);
 			this->label9->Name = L"label9";
-			this->label9->Size = System::Drawing::Size(304, 13);
+			this->label9->Size = System::Drawing::Size(262, 13);
 			this->label9->TabIndex = 10;
-			this->label9->Text = L"Number Of Hidden Neurons Inside Each Hidden Layer :";
+			this->label9->Text = L"Number Of Neurons Inside Each Hidden Layer :";
 			// 
 			// hidden_layers_num_combo_box
 			// 
@@ -301,7 +338,7 @@ namespace MultiLayerNeuronNetwork {
 				L"1", L"2", L"3", L"4", L"5",
 					L"6", L"7", L"8", L"9"
 			});
-			this->hidden_layers_num_combo_box->Location = System::Drawing::Point(25, 112);
+			this->hidden_layers_num_combo_box->Location = System::Drawing::Point(25, 109);
 			this->hidden_layers_num_combo_box->Name = L"hidden_layers_num_combo_box";
 			this->hidden_layers_num_combo_box->Size = System::Drawing::Size(80, 24);
 			this->hidden_layers_num_combo_box->TabIndex = 9;
@@ -312,31 +349,19 @@ namespace MultiLayerNeuronNetwork {
 			this->label8->AutoSize = true;
 			this->label8->Font = (gcnew System::Drawing::Font(L"Arial", 8.25F, static_cast<System::Drawing::FontStyle>((System::Drawing::FontStyle::Bold | System::Drawing::FontStyle::Italic)),
 				System::Drawing::GraphicsUnit::Point, static_cast<System::Byte>(0)));
-			this->label8->Location = System::Drawing::Point(6, 93);
+			this->label8->Location = System::Drawing::Point(13, 93);
 			this->label8->Name = L"label8";
 			this->label8->Size = System::Drawing::Size(162, 13);
 			this->label8->TabIndex = 8;
 			this->label8->Text = L"Number Of Hidden Layer(s) :";
 			// 
-			// clear_lines
-			// 
-			this->clear_lines->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 9, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
-				static_cast<System::Byte>(0)));
-			this->clear_lines->Location = System::Drawing::Point(59, 336);
-			this->clear_lines->Name = L"clear_lines";
-			this->clear_lines->Size = System::Drawing::Size(89, 39);
-			this->clear_lines->TabIndex = 7;
-			this->clear_lines->Text = L"Clear Lines";
-			this->clear_lines->UseVisualStyleBackColor = true;
-			this->clear_lines->Click += gcnew System::EventHandler(this, &MyForm::clear_lines_Click);
-			// 
 			// clear_all
 			// 
 			this->clear_all->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 9, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
 				static_cast<System::Byte>(0)));
-			this->clear_all->Location = System::Drawing::Point(154, 336);
+			this->clear_all->Location = System::Drawing::Point(275, 397);
 			this->clear_all->Name = L"clear_all";
-			this->clear_all->Size = System::Drawing::Size(90, 39);
+			this->clear_all->Size = System::Drawing::Size(90, 59);
 			this->clear_all->TabIndex = 6;
 			this->clear_all->Text = L"Clear All";
 			this->clear_all->UseVisualStyleBackColor = true;
@@ -351,7 +376,7 @@ namespace MultiLayerNeuronNetwork {
 				L"1", L"2", L"3", L"4", L"5", L"6", L"7",
 					L"8", L"9"
 			});
-			this->class_id_combo_box->Location = System::Drawing::Point(25, 290);
+			this->class_id_combo_box->Location = System::Drawing::Point(25, 361);
 			this->class_id_combo_box->Name = L"class_id_combo_box";
 			this->class_id_combo_box->Size = System::Drawing::Size(80, 24);
 			this->class_id_combo_box->TabIndex = 4;
@@ -362,19 +387,19 @@ namespace MultiLayerNeuronNetwork {
 			this->label2->AutoSize = true;
 			this->label2->Font = (gcnew System::Drawing::Font(L"Arial", 8.25F, static_cast<System::Drawing::FontStyle>((System::Drawing::FontStyle::Bold | System::Drawing::FontStyle::Italic)),
 				System::Drawing::GraphicsUnit::Point, static_cast<System::Byte>(0)));
-			this->label2->Location = System::Drawing::Point(6, 261);
+			this->label2->Location = System::Drawing::Point(8, 345);
 			this->label2->Name = L"label2";
-			this->label2->Size = System::Drawing::Size(189, 13);
+			this->label2->Size = System::Drawing::Size(357, 13);
 			this->label2->TabIndex = 3;
-			this->label2->Text = L"Select Class id To Add a Sample :";
+			this->label2->Text = L"Select Class id And Click To Add a Sample in Coordinate Plane:";
 			// 
 			// set_button
 			// 
 			this->set_button->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 9, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
 				static_cast<System::Byte>(0)));
-			this->set_button->Location = System::Drawing::Point(8, 220);
+			this->set_button->Location = System::Drawing::Point(16, 295);
 			this->set_button->Name = L"set_button";
-			this->set_button->Size = System::Drawing::Size(290, 25);
+			this->set_button->Size = System::Drawing::Size(355, 25);
 			this->set_button->TabIndex = 2;
 			this->set_button->Text = L"Set";
 			this->set_button->UseVisualStyleBackColor = true;
@@ -389,7 +414,7 @@ namespace MultiLayerNeuronNetwork {
 				L"2", L"3", L"4", L"5", L"6", L"7",
 					L"8", L"9"
 			});
-			this->total_classNum_combo_box->Location = System::Drawing::Point(25, 48);
+			this->total_classNum_combo_box->Location = System::Drawing::Point(25, 45);
 			this->total_classNum_combo_box->Name = L"total_classNum_combo_box";
 			this->total_classNum_combo_box->Size = System::Drawing::Size(80, 24);
 			this->total_classNum_combo_box->TabIndex = 1;
@@ -401,7 +426,7 @@ namespace MultiLayerNeuronNetwork {
 			this->label1->AutoSize = true;
 			this->label1->Font = (gcnew System::Drawing::Font(L"Arial", 8.25F, static_cast<System::Drawing::FontStyle>((System::Drawing::FontStyle::Bold | System::Drawing::FontStyle::Italic)),
 				System::Drawing::GraphicsUnit::Point, static_cast<System::Byte>(0)));
-			this->label1->Location = System::Drawing::Point(8, 29);
+			this->label1->Location = System::Drawing::Point(13, 29);
 			this->label1->Name = L"label1";
 			this->label1->Size = System::Drawing::Size(295, 13);
 			this->label1->TabIndex = 0;
@@ -429,9 +454,9 @@ namespace MultiLayerNeuronNetwork {
 			this->groupBox2->Controls->Add(this->label3);
 			this->groupBox2->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 9.75F, static_cast<System::Drawing::FontStyle>((System::Drawing::FontStyle::Bold | System::Drawing::FontStyle::Underline)),
 				System::Drawing::GraphicsUnit::Point, static_cast<System::Byte>(0)));
-			this->groupBox2->Location = System::Drawing::Point(831, 426);
+			this->groupBox2->Location = System::Drawing::Point(818, 497);
 			this->groupBox2->Name = L"groupBox2";
-			this->groupBox2->Size = System::Drawing::Size(328, 203);
+			this->groupBox2->Size = System::Drawing::Size(392, 232);
 			this->groupBox2->TabIndex = 6;
 			this->groupBox2->TabStop = false;
 			this->groupBox2->Text = L"Information";
@@ -442,7 +467,7 @@ namespace MultiLayerNeuronNetwork {
 			this->output_layer_label->Font = (gcnew System::Drawing::Font(L"Arial", 8.25F, static_cast<System::Drawing::FontStyle>((System::Drawing::FontStyle::Bold | System::Drawing::FontStyle::Italic)),
 				System::Drawing::GraphicsUnit::Point, static_cast<System::Byte>(0)));
 			this->output_layer_label->ForeColor = System::Drawing::Color::Red;
-			this->output_layer_label->Location = System::Drawing::Point(247, 187);
+			this->output_layer_label->Location = System::Drawing::Point(296, 197);
 			this->output_layer_label->Name = L"output_layer_label";
 			this->output_layer_label->Size = System::Drawing::Size(11, 13);
 			this->output_layer_label->TabIndex = 20;
@@ -454,7 +479,7 @@ namespace MultiLayerNeuronNetwork {
 			this->hidden_layers_label->Font = (gcnew System::Drawing::Font(L"Arial", 8.25F, static_cast<System::Drawing::FontStyle>((System::Drawing::FontStyle::Bold | System::Drawing::FontStyle::Italic)),
 				System::Drawing::GraphicsUnit::Point, static_cast<System::Byte>(0)));
 			this->hidden_layers_label->ForeColor = System::Drawing::Color::Green;
-			this->hidden_layers_label->Location = System::Drawing::Point(137, 187);
+			this->hidden_layers_label->Location = System::Drawing::Point(158, 197);
 			this->hidden_layers_label->Name = L"hidden_layers_label";
 			this->hidden_layers_label->Size = System::Drawing::Size(11, 13);
 			this->hidden_layers_label->TabIndex = 19;
@@ -466,7 +491,7 @@ namespace MultiLayerNeuronNetwork {
 			this->input_label->Font = (gcnew System::Drawing::Font(L"Arial", 8.25F, static_cast<System::Drawing::FontStyle>((System::Drawing::FontStyle::Bold | System::Drawing::FontStyle::Italic)),
 				System::Drawing::GraphicsUnit::Point, static_cast<System::Byte>(0)));
 			this->input_label->ForeColor = System::Drawing::Color::Blue;
-			this->input_label->Location = System::Drawing::Point(22, 187);
+			this->input_label->Location = System::Drawing::Point(22, 197);
 			this->input_label->Name = L"input_label";
 			this->input_label->Size = System::Drawing::Size(11, 13);
 			this->input_label->TabIndex = 18;
@@ -478,7 +503,7 @@ namespace MultiLayerNeuronNetwork {
 			this->label14->Font = (gcnew System::Drawing::Font(L"Sitka Display", 8.25F, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
 				static_cast<System::Byte>(0)));
 			this->label14->ForeColor = System::Drawing::Color::Red;
-			this->label14->Location = System::Drawing::Point(233, 160);
+			this->label14->Location = System::Drawing::Point(280, 171);
 			this->label14->Name = L"label14";
 			this->label14->Size = System::Drawing::Size(37, 16);
 			this->label14->TabIndex = 17;
@@ -490,7 +515,7 @@ namespace MultiLayerNeuronNetwork {
 			this->label13->Font = (gcnew System::Drawing::Font(L"Sitka Display", 8.25F, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
 				static_cast<System::Byte>(0)));
 			this->label13->ForeColor = System::Drawing::Color::Green;
-			this->label13->Location = System::Drawing::Point(121, 160);
+			this->label13->Location = System::Drawing::Point(137, 171);
 			this->label13->Name = L"label13";
 			this->label13->Size = System::Drawing::Size(65, 16);
 			this->label13->TabIndex = 16;
@@ -502,7 +527,7 @@ namespace MultiLayerNeuronNetwork {
 			this->label12->Font = (gcnew System::Drawing::Font(L"Sitka Display", 8.25F, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
 				static_cast<System::Byte>(0)));
 			this->label12->ForeColor = System::Drawing::Color::Blue;
-			this->label12->Location = System::Drawing::Point(8, 160);
+			this->label12->Location = System::Drawing::Point(8, 171);
 			this->label12->Name = L"label12";
 			this->label12->Size = System::Drawing::Size(32, 16);
 			this->label12->TabIndex = 15;
@@ -524,7 +549,7 @@ namespace MultiLayerNeuronNetwork {
 			this->Error_lable->AutoSize = true;
 			this->Error_lable->Font = (gcnew System::Drawing::Font(L"Arial", 8.25F, static_cast<System::Drawing::FontStyle>((System::Drawing::FontStyle::Bold | System::Drawing::FontStyle::Italic)),
 				System::Drawing::GraphicsUnit::Point, static_cast<System::Byte>(0)));
-			this->Error_lable->Location = System::Drawing::Point(63, 120);
+			this->Error_lable->Location = System::Drawing::Point(63, 94);
 			this->Error_lable->Name = L"Error_lable";
 			this->Error_lable->Size = System::Drawing::Size(11, 13);
 			this->Error_lable->TabIndex = 13;
@@ -535,7 +560,7 @@ namespace MultiLayerNeuronNetwork {
 			this->label10->AutoSize = true;
 			this->label10->Font = (gcnew System::Drawing::Font(L"Sitka Small", 8.25F, static_cast<System::Drawing::FontStyle>((System::Drawing::FontStyle::Bold | System::Drawing::FontStyle::Italic)),
 				System::Drawing::GraphicsUnit::Point, static_cast<System::Byte>(0)));
-			this->label10->Location = System::Drawing::Point(8, 117);
+			this->label10->Location = System::Drawing::Point(8, 91);
 			this->label10->Name = L"label10";
 			this->label10->Size = System::Drawing::Size(49, 16);
 			this->label10->TabIndex = 12;
@@ -546,7 +571,7 @@ namespace MultiLayerNeuronNetwork {
 			this->cycle_count_label->AutoSize = true;
 			this->cycle_count_label->Font = (gcnew System::Drawing::Font(L"Arial", 8.25F, static_cast<System::Drawing::FontStyle>((System::Drawing::FontStyle::Bold | System::Drawing::FontStyle::Italic)),
 				System::Drawing::GraphicsUnit::Point, static_cast<System::Byte>(0)));
-			this->cycle_count_label->Location = System::Drawing::Point(234, 94);
+			this->cycle_count_label->Location = System::Drawing::Point(233, 119);
 			this->cycle_count_label->Name = L"cycle_count_label";
 			this->cycle_count_label->Size = System::Drawing::Size(11, 13);
 			this->cycle_count_label->TabIndex = 11;
@@ -557,7 +582,7 @@ namespace MultiLayerNeuronNetwork {
 			this->label7->AutoSize = true;
 			this->label7->Font = (gcnew System::Drawing::Font(L"Sitka Small", 8.25F, static_cast<System::Drawing::FontStyle>((System::Drawing::FontStyle::Bold | System::Drawing::FontStyle::Italic)),
 				System::Drawing::GraphicsUnit::Point, static_cast<System::Byte>(0)));
-			this->label7->Location = System::Drawing::Point(8, 91);
+			this->label7->Location = System::Drawing::Point(7, 116);
 			this->label7->Name = L"label7";
 			this->label7->Size = System::Drawing::Size(220, 16);
 			this->label7->TabIndex = 10;
@@ -568,7 +593,7 @@ namespace MultiLayerNeuronNetwork {
 			this->x2_label->AutoSize = true;
 			this->x2_label->Font = (gcnew System::Drawing::Font(L"Arial", 8.25F, static_cast<System::Drawing::FontStyle>((System::Drawing::FontStyle::Bold | System::Drawing::FontStyle::Italic)),
 				System::Drawing::GraphicsUnit::Point, static_cast<System::Byte>(0)));
-			this->x2_label->Location = System::Drawing::Point(212, 63);
+			this->x2_label->Location = System::Drawing::Point(267, 65);
 			this->x2_label->Name = L"x2_label";
 			this->x2_label->Size = System::Drawing::Size(11, 13);
 			this->x2_label->TabIndex = 9;
@@ -601,7 +626,7 @@ namespace MultiLayerNeuronNetwork {
 			this->label5->AutoSize = true;
 			this->label5->Font = (gcnew System::Drawing::Font(L"Sitka Small", 8.25F, static_cast<System::Drawing::FontStyle>((System::Drawing::FontStyle::Bold | System::Drawing::FontStyle::Italic)),
 				System::Drawing::GraphicsUnit::Point, static_cast<System::Byte>(0)));
-			this->label5->Location = System::Drawing::Point(175, 60);
+			this->label5->Location = System::Drawing::Point(230, 62);
 			this->label5->Name = L"label5";
 			this->label5->Size = System::Drawing::Size(31, 16);
 			this->label5->TabIndex = 6;
@@ -644,7 +669,7 @@ namespace MultiLayerNeuronNetwork {
 			// 
 			this->AutoScaleDimensions = System::Drawing::SizeF(6, 13);
 			this->AutoScaleMode = System::Windows::Forms::AutoScaleMode::Font;
-			this->ClientSize = System::Drawing::Size(1184, 641);
+			this->ClientSize = System::Drawing::Size(1234, 761);
 			this->Controls->Add(this->groupBox2);
 			this->Controls->Add(this->groupBox1);
 			this->Controls->Add(this->Coordinate_plane_PictureBox);
@@ -693,6 +718,7 @@ namespace MultiLayerNeuronNetwork {
 			total_class_number = Convert::ToInt16(total_classNum_combo_box->Text);
 			number_of_hidden_layers = Convert::ToInt16(hidden_layers_num_combo_box->Text);
 			neurons_number_in_each_hidden_layer = Convert::ToInt16(hidden_neurons_num_combo_box->Text);
+			train_type = Training_type_combo_box->SelectedIndex;
 
 
 			// the rows of our weight matrix is equal to total class number and the colums are equal to inputs + 1 ( because we are going to choose our input from coordinate palne
@@ -715,6 +741,9 @@ namespace MultiLayerNeuronNetwork {
 		// enable hidden_neuron_num combobox, so user can specify how many neurons they want to use in each hidden layer
 		hidden_neurons_num_combo_box->Enabled = true;
 		hidden_neurons_num_combo_box->SelectedIndex = 0;
+		// enable train type combo box , so user can specify the way they want to train the network (SGD or SGD_M)
+		Training_type_combo_box->Enabled = true;
+		Training_type_combo_box->SelectedIndex = 0;
 
 		set_button->ForeColor = Color::Red;
 
@@ -739,6 +768,23 @@ namespace MultiLayerNeuronNetwork {
 		else {
 			class_id_combo_box->Enabled = false;
 		}
+	}
+
+//##############################################################################################################################################################################################################
+
+	void set_network_architecture() {
+		// set input (input is not a layer because we get the data from user)
+		input_label->Text = Convert::ToString(dimension);
+
+		// set hidden layer(s)
+		String^ hidden_layers_text = ""; // multiply by 2 because we put space between each character
+		for (int i = 0; i < number_of_hidden_layers; i++) {
+			hidden_layers_text += (neurons_number_in_each_hidden_layer.ToString() + " ");
+		}
+		hidden_layers_label->Text = Convert::ToString(hidden_layers_text);
+
+		//set output layer
+		output_layer_label->Text = Convert::ToString(total_class_number);
 	}
 
 //##############################################################################################################################################################################################################
@@ -801,38 +847,6 @@ namespace MultiLayerNeuronNetwork {
 
 //##############################################################################################################################################################################################################
 
-	// deleting all lines (we actually clean coordinate plane by deleting all the lines and points and then draw points again)
-	// this is not going to give you a good output if you ran the delta learning before because all the points are normalized, and when you redraw the points, the points will be so close together
-	private: System::Void clear_lines_Click(System::Object^ sender, System::EventArgs^ e) {
-		Coordinate_plane_PictureBox->Refresh();
-
-		for (int i = 0; i < total_points; i++) {
-			int pure_x = points[i].x_coordinates[0] + (Coordinate_plane_PictureBox->Width / 2);
-			int pure_y = (Coordinate_plane_PictureBox->Height / 2) - points[i].x_coordinates[1];
-
-			Pen^ pen;
-			switch (points[i].class_id) {
-			case 0: pen = gcnew Pen(Color::Red, 3.0f); break;
-			case 1: pen = gcnew Pen(Color::Green, 3.0f); break;
-			case 2: pen = gcnew Pen(Color::Blue, 3.0f); break;
-			case 3: pen = gcnew Pen(Color::Yellow, 3.0f); break;
-			case 4: pen = gcnew Pen(Color::Pink, 3.0f); break;
-			case 5: pen = gcnew Pen(Color::Orange, 3.0f); break;
-			case 6: pen = gcnew Pen(Color::Aqua, 3.0f); break;
-			case 7: pen = gcnew Pen(Color::Brown, 3.0f); break;
-			case 8: pen = gcnew Pen(Color::Purple, 3.0f); break;
-			default: pen = gcnew Pen(Color::Black, 3.0f);
-			}
-
-			Coordinate_plane_PictureBox->CreateGraphics()->DrawLine(pen, pure_x - 5, pure_y, pure_x + 5, pure_y);
-			Coordinate_plane_PictureBox->CreateGraphics()->DrawLine(pen, pure_x, pure_y - 5, pure_x, pure_y + 5);
-
-		}
-	}
-
-
-//##############################################################################################################################################################################################################
-
 	// clear coordinate plane by deleting all the lines and points 
 	private: System::Void clear_all_Click(System::Object^ sender, System::EventArgs^ e) {
 		Coordinate_plane_PictureBox->Refresh();
@@ -868,8 +882,7 @@ namespace MultiLayerNeuronNetwork {
 		//points[4].class_id = 1;
 
 		Neural_Network* my_network = (Neural_Network *)malloc(sizeof(Neural_Network));
-		create_network(my_network, dimension, number_of_hidden_layers, neurons_number_in_each_hidden_layer, total_class_number);
-		initiate_all_layers(my_network->layers, dimension, number_of_hidden_layers, neurons_number_in_each_hidden_layer, total_class_number);
+		create_network(my_network, dimension, number_of_hidden_layers, neurons_number_in_each_hidden_layer, total_class_number, train_type);
 
 		/*Layer * all_layers = my_network->layers;
 		all_layers[0].weights[0] = 0.6;
@@ -933,8 +946,8 @@ namespace MultiLayerNeuronNetwork {
 			default: pen = gcnew Pen(Color::Black, 3.0f);
 			}
 
-			min_y = find_y_point(min_x, &my_network->layers[0].weights[neuron_index * (dimension + 1)], 50);
-			max_y = find_y_point(max_x, &my_network->layers[0].weights[neuron_index * (dimension + 1)], 50);
+			min_y = find_y_point(min_x, &my_network->layers[0].weights[neuron_index * (dimension + 1)], 100);
+			max_y = find_y_point(max_x, &my_network->layers[0].weights[neuron_index * (dimension + 1)], 100);
 			Coordinate_plane_PictureBox->CreateGraphics()->DrawLine(pen, (Coordinate_plane_PictureBox->Width / 2) + min_x, (Coordinate_plane_PictureBox->Height / 2) - min_y, (Coordinate_plane_PictureBox->Width / 2) + max_x, (Coordinate_plane_PictureBox->Height / 2) - max_y);
 
 		}
@@ -963,12 +976,101 @@ namespace MultiLayerNeuronNetwork {
 			Coordinate_plane_PictureBox->CreateGraphics()->DrawLine(pen, pure_x, pure_y - 5, pure_x, pure_y + 5);
 
 		}
-
-	/*	double coordX = 0.0;
-		double coordY = 0.0;
-
-		Bitmap^ bgDrawingArea = gcnew Bitmap(Coordinate_plane_PictureBox->Width, Coordinate_plane_PictureBox->Height);
-		Coordinate_plane_PictureBox->Image = bgDrawingArea;*/
 	}
+
+//##############################################################################################################################################################################################################
+
+	private: System::Void start_training_button_Click(System::Object^ sender, System::EventArgs^ e) {
+		Neural_Network* my_network = (Neural_Network*)malloc(sizeof(Neural_Network));
+		create_network(my_network, dimension, number_of_hidden_layers, neurons_number_in_each_hidden_layer, total_class_number, train_type);
+
+		z_score_normalization(points, total_points);
+		double norm_error = 0.0;
+		double max_error = 0.001;
+		double total_error;
+		int cycles = 100000;
+		int cycle_count = 0;
+
+		do {
+			total_error = 0.0;
+			for (int p = 0; p < total_points; p++) {
+				total_error += train(points[p], my_network, my_network->layers);
+			}
+
+			norm_error = RMSE(total_error, total_points, my_network->total_neuron_number);
+			Error_lable->Text = Convert::ToString(norm_error);
+			Error_lable->Refresh();
+
+			cycle_count += 1;
+		} while (norm_error > max_error /*&& cycles > cycle_count*/);
+
+		cycle_count_label->Text = cycle_count.ToString();
+		Coordinate_plane_PictureBox->Refresh();
+
+		draw_lines(my_network->layers[0].number_of_neurons, my_network->layers[0].weights);
+		draw_points();
+	}
+
+//##############################################################################################################################################################################################################
+
+	private :void draw_lines(int number_of_lines, double *weights) {
+		int min_x, min_y, max_x, max_y;
+		min_x = (this->Coordinate_plane_PictureBox->Width) / -2;
+		max_x = (this->Coordinate_plane_PictureBox->Width) / 2;
+
+		for (int line_index = 0; line_index < number_of_lines; line_index++) {
+
+			Pen^ pen;
+			switch (line_index) {
+			case 0: pen = gcnew Pen(Color::Red, 3.0f); break;
+			case 1: pen = gcnew Pen(Color::Green, 3.0f); break;
+			case 2: pen = gcnew Pen(Color::Blue, 3.0f); break;
+			case 3: pen = gcnew Pen(Color::Yellow, 3.0f); break;
+			case 4: pen = gcnew Pen(Color::Pink, 3.0f); break;
+			case 5: pen = gcnew Pen(Color::Orange, 3.0f); break;
+			case 6: pen = gcnew Pen(Color::Aqua, 3.0f); break;
+			case 7: pen = gcnew Pen(Color::Brown, 3.0f); break;
+			case 8: pen = gcnew Pen(Color::Purple, 3.0f); break;
+			default: pen = gcnew Pen(Color::Black, 3.0f);
+			}
+
+			min_y = find_y_point(min_x, &weights[line_index* (dimension + 1)], 50);
+			max_y = find_y_point(max_x, &weights[line_index * (dimension + 1)], 50);
+			Coordinate_plane_PictureBox->CreateGraphics()->DrawLine(pen, (Coordinate_plane_PictureBox->Width / 2) + min_x, (Coordinate_plane_PictureBox->Height / 2) - min_y, (Coordinate_plane_PictureBox->Width / 2) + max_x, (Coordinate_plane_PictureBox->Height / 2) - max_y);
+
+		}
+	}
+
+//##############################################################################################################################################################################################################
+	
+	private: void draw_points() {
+		for (int i = 0; i < total_points; i++) {
+
+			int pure_x = points[i].x_coordinates[0] * 50 + (Coordinate_plane_PictureBox->Width / 2);
+			int pure_y = (Coordinate_plane_PictureBox->Height / 2) - points[i].x_coordinates[1] * 50;
+
+			Pen^ pen;
+			switch (points[i].class_id) {
+			case 0: pen = gcnew Pen(Color::Red, 3.0f); break;
+			case 1: pen = gcnew Pen(Color::Green, 3.0f); break;
+			case 2: pen = gcnew Pen(Color::Blue, 3.0f); break;
+			case 3: pen = gcnew Pen(Color::Yellow, 3.0f); break;
+			case 4: pen = gcnew Pen(Color::Pink, 3.0f); break;
+			case 5: pen = gcnew Pen(Color::Orange, 3.0f); break;
+			case 6: pen = gcnew Pen(Color::Aqua, 3.0f); break;
+			case 7: pen = gcnew Pen(Color::Brown, 3.0f); break;
+			case 8: pen = gcnew Pen(Color::Purple, 3.0f); break;
+			default: pen = gcnew Pen(Color::Black, 3.0f);
+			}
+
+			Coordinate_plane_PictureBox->CreateGraphics()->DrawLine(pen, pure_x - 5, pure_y, pure_x + 5, pure_y);
+			Coordinate_plane_PictureBox->CreateGraphics()->DrawLine(pen, pure_x, pure_y - 5, pure_x, pure_y + 5);
+		}
+	}
+
+//##############################################################################################################################################################################################################
+
+
+	
 };
 }
