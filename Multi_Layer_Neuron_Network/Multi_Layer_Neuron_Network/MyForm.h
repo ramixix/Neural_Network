@@ -89,6 +89,16 @@ namespace MultiLayerNeuronNetwork {
 		int total_layers = 0;
 	private: System::Windows::Forms::Label^ Error_lable;
 	private: System::Windows::Forms::Label^ label10;
+	private: System::Windows::Forms::Label^ output_layer_label;
+
+	private: System::Windows::Forms::Label^ hidden_layers_label;
+
+
+	private: System::Windows::Forms::Label^ input_label;
+	private: System::Windows::Forms::Label^ label14;
+	private: System::Windows::Forms::Label^ label13;
+	private: System::Windows::Forms::Label^ label12;
+	private: System::Windows::Forms::Label^ label11;
 
 
 		System::ComponentModel::Container ^components;
@@ -98,6 +108,24 @@ namespace MultiLayerNeuronNetwork {
 		/// Required method for Designer support - do not modify
 		/// the contents of this method with the code editor.
 		/// </summary>
+		/// 
+//###############################################################################################################################################
+		void set_network_architecture() {
+			// set input (input is not a layer because we get the data from user)
+			input_label->Text = Convert::ToString(dimension);
+
+			// set hidden layer(s)
+			String ^ hidden_layers_text = ""; // multiply by 2 because we put space between each character
+			for (int i = 0; i < number_of_hidden_layers; i++) {
+				hidden_layers_text += (neurons_number_in_each_hidden_layer.ToString() + " ");
+			}
+			hidden_layers_label->Text = Convert::ToString(hidden_layers_text);
+
+			//set output layer
+			output_layer_label->Text = Convert::ToString(total_class_number);
+		}
+//###############################################################################################################################################
+
 		void InitializeComponent(void)
 		{
 			System::ComponentModel::ComponentResourceManager^ resources = (gcnew System::ComponentModel::ComponentResourceManager(MyForm::typeid));
@@ -122,6 +150,15 @@ namespace MultiLayerNeuronNetwork {
 			this->total_classNum_combo_box = (gcnew System::Windows::Forms::ComboBox());
 			this->label1 = (gcnew System::Windows::Forms::Label());
 			this->groupBox2 = (gcnew System::Windows::Forms::GroupBox());
+			this->output_layer_label = (gcnew System::Windows::Forms::Label());
+			this->hidden_layers_label = (gcnew System::Windows::Forms::Label());
+			this->input_label = (gcnew System::Windows::Forms::Label());
+			this->label14 = (gcnew System::Windows::Forms::Label());
+			this->label13 = (gcnew System::Windows::Forms::Label());
+			this->label12 = (gcnew System::Windows::Forms::Label());
+			this->label11 = (gcnew System::Windows::Forms::Label());
+			this->Error_lable = (gcnew System::Windows::Forms::Label());
+			this->label10 = (gcnew System::Windows::Forms::Label());
 			this->cycle_count_label = (gcnew System::Windows::Forms::Label());
 			this->label7 = (gcnew System::Windows::Forms::Label());
 			this->x2_label = (gcnew System::Windows::Forms::Label());
@@ -131,8 +168,6 @@ namespace MultiLayerNeuronNetwork {
 			this->label4 = (gcnew System::Windows::Forms::Label());
 			this->total_sample_label = (gcnew System::Windows::Forms::Label());
 			this->label3 = (gcnew System::Windows::Forms::Label());
-			this->label10 = (gcnew System::Windows::Forms::Label());
-			this->Error_lable = (gcnew System::Windows::Forms::Label());
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->Coordinate_plane_PictureBox))->BeginInit();
 			this->menuStrip1->SuspendLayout();
 			this->groupBox1->SuspendLayout();
@@ -374,6 +409,13 @@ namespace MultiLayerNeuronNetwork {
 			// 
 			// groupBox2
 			// 
+			this->groupBox2->Controls->Add(this->output_layer_label);
+			this->groupBox2->Controls->Add(this->hidden_layers_label);
+			this->groupBox2->Controls->Add(this->input_label);
+			this->groupBox2->Controls->Add(this->label14);
+			this->groupBox2->Controls->Add(this->label13);
+			this->groupBox2->Controls->Add(this->label12);
+			this->groupBox2->Controls->Add(this->label11);
 			this->groupBox2->Controls->Add(this->Error_lable);
 			this->groupBox2->Controls->Add(this->label10);
 			this->groupBox2->Controls->Add(this->cycle_count_label);
@@ -394,12 +436,117 @@ namespace MultiLayerNeuronNetwork {
 			this->groupBox2->TabStop = false;
 			this->groupBox2->Text = L"Information";
 			// 
+			// output_layer_label
+			// 
+			this->output_layer_label->AutoSize = true;
+			this->output_layer_label->Font = (gcnew System::Drawing::Font(L"Arial", 8.25F, static_cast<System::Drawing::FontStyle>((System::Drawing::FontStyle::Bold | System::Drawing::FontStyle::Italic)),
+				System::Drawing::GraphicsUnit::Point, static_cast<System::Byte>(0)));
+			this->output_layer_label->ForeColor = System::Drawing::Color::Red;
+			this->output_layer_label->Location = System::Drawing::Point(247, 187);
+			this->output_layer_label->Name = L"output_layer_label";
+			this->output_layer_label->Size = System::Drawing::Size(11, 13);
+			this->output_layer_label->TabIndex = 20;
+			this->output_layer_label->Text = L"-";
+			// 
+			// hidden_layers_label
+			// 
+			this->hidden_layers_label->AutoSize = true;
+			this->hidden_layers_label->Font = (gcnew System::Drawing::Font(L"Arial", 8.25F, static_cast<System::Drawing::FontStyle>((System::Drawing::FontStyle::Bold | System::Drawing::FontStyle::Italic)),
+				System::Drawing::GraphicsUnit::Point, static_cast<System::Byte>(0)));
+			this->hidden_layers_label->ForeColor = System::Drawing::Color::Green;
+			this->hidden_layers_label->Location = System::Drawing::Point(137, 187);
+			this->hidden_layers_label->Name = L"hidden_layers_label";
+			this->hidden_layers_label->Size = System::Drawing::Size(11, 13);
+			this->hidden_layers_label->TabIndex = 19;
+			this->hidden_layers_label->Text = L"-";
+			// 
+			// input_label
+			// 
+			this->input_label->AutoSize = true;
+			this->input_label->Font = (gcnew System::Drawing::Font(L"Arial", 8.25F, static_cast<System::Drawing::FontStyle>((System::Drawing::FontStyle::Bold | System::Drawing::FontStyle::Italic)),
+				System::Drawing::GraphicsUnit::Point, static_cast<System::Byte>(0)));
+			this->input_label->ForeColor = System::Drawing::Color::Blue;
+			this->input_label->Location = System::Drawing::Point(22, 187);
+			this->input_label->Name = L"input_label";
+			this->input_label->Size = System::Drawing::Size(11, 13);
+			this->input_label->TabIndex = 18;
+			this->input_label->Text = L"-";
+			// 
+			// label14
+			// 
+			this->label14->AutoSize = true;
+			this->label14->Font = (gcnew System::Drawing::Font(L"Sitka Display", 8.25F, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
+				static_cast<System::Byte>(0)));
+			this->label14->ForeColor = System::Drawing::Color::Red;
+			this->label14->Location = System::Drawing::Point(233, 160);
+			this->label14->Name = L"label14";
+			this->label14->Size = System::Drawing::Size(37, 16);
+			this->label14->TabIndex = 17;
+			this->label14->Text = L"output";
+			// 
+			// label13
+			// 
+			this->label13->AutoSize = true;
+			this->label13->Font = (gcnew System::Drawing::Font(L"Sitka Display", 8.25F, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
+				static_cast<System::Byte>(0)));
+			this->label13->ForeColor = System::Drawing::Color::Green;
+			this->label13->Location = System::Drawing::Point(121, 160);
+			this->label13->Name = L"label13";
+			this->label13->Size = System::Drawing::Size(65, 16);
+			this->label13->TabIndex = 16;
+			this->label13->Text = L"hidden layer";
+			// 
+			// label12
+			// 
+			this->label12->AutoSize = true;
+			this->label12->Font = (gcnew System::Drawing::Font(L"Sitka Display", 8.25F, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
+				static_cast<System::Byte>(0)));
+			this->label12->ForeColor = System::Drawing::Color::Blue;
+			this->label12->Location = System::Drawing::Point(8, 160);
+			this->label12->Name = L"label12";
+			this->label12->Size = System::Drawing::Size(32, 16);
+			this->label12->TabIndex = 15;
+			this->label12->Text = L"input";
+			// 
+			// label11
+			// 
+			this->label11->AutoSize = true;
+			this->label11->Font = (gcnew System::Drawing::Font(L"Sitka Small", 8.25F, static_cast<System::Drawing::FontStyle>((System::Drawing::FontStyle::Bold | System::Drawing::FontStyle::Italic)),
+				System::Drawing::GraphicsUnit::Point, static_cast<System::Byte>(0)));
+			this->label11->Location = System::Drawing::Point(7, 144);
+			this->label11->Name = L"label11";
+			this->label11->Size = System::Drawing::Size(141, 16);
+			this->label11->TabIndex = 14;
+			this->label11->Text = L"Network Architecture :";
+			// 
+			// Error_lable
+			// 
+			this->Error_lable->AutoSize = true;
+			this->Error_lable->Font = (gcnew System::Drawing::Font(L"Arial", 8.25F, static_cast<System::Drawing::FontStyle>((System::Drawing::FontStyle::Bold | System::Drawing::FontStyle::Italic)),
+				System::Drawing::GraphicsUnit::Point, static_cast<System::Byte>(0)));
+			this->Error_lable->Location = System::Drawing::Point(63, 120);
+			this->Error_lable->Name = L"Error_lable";
+			this->Error_lable->Size = System::Drawing::Size(11, 13);
+			this->Error_lable->TabIndex = 13;
+			this->Error_lable->Text = L"-";
+			// 
+			// label10
+			// 
+			this->label10->AutoSize = true;
+			this->label10->Font = (gcnew System::Drawing::Font(L"Sitka Small", 8.25F, static_cast<System::Drawing::FontStyle>((System::Drawing::FontStyle::Bold | System::Drawing::FontStyle::Italic)),
+				System::Drawing::GraphicsUnit::Point, static_cast<System::Byte>(0)));
+			this->label10->Location = System::Drawing::Point(8, 117);
+			this->label10->Name = L"label10";
+			this->label10->Size = System::Drawing::Size(49, 16);
+			this->label10->TabIndex = 12;
+			this->label10->Text = L"Error :";
+			// 
 			// cycle_count_label
 			// 
 			this->cycle_count_label->AutoSize = true;
 			this->cycle_count_label->Font = (gcnew System::Drawing::Font(L"Arial", 8.25F, static_cast<System::Drawing::FontStyle>((System::Drawing::FontStyle::Bold | System::Drawing::FontStyle::Italic)),
 				System::Drawing::GraphicsUnit::Point, static_cast<System::Byte>(0)));
-			this->cycle_count_label->Location = System::Drawing::Point(233, 132);
+			this->cycle_count_label->Location = System::Drawing::Point(234, 94);
 			this->cycle_count_label->Name = L"cycle_count_label";
 			this->cycle_count_label->Size = System::Drawing::Size(11, 13);
 			this->cycle_count_label->TabIndex = 11;
@@ -410,7 +557,7 @@ namespace MultiLayerNeuronNetwork {
 			this->label7->AutoSize = true;
 			this->label7->Font = (gcnew System::Drawing::Font(L"Sitka Small", 8.25F, static_cast<System::Drawing::FontStyle>((System::Drawing::FontStyle::Bold | System::Drawing::FontStyle::Italic)),
 				System::Drawing::GraphicsUnit::Point, static_cast<System::Byte>(0)));
-			this->label7->Location = System::Drawing::Point(5, 129);
+			this->label7->Location = System::Drawing::Point(8, 91);
 			this->label7->Name = L"label7";
 			this->label7->Size = System::Drawing::Size(220, 16);
 			this->label7->TabIndex = 10;
@@ -421,7 +568,7 @@ namespace MultiLayerNeuronNetwork {
 			this->x2_label->AutoSize = true;
 			this->x2_label->Font = (gcnew System::Drawing::Font(L"Arial", 8.25F, static_cast<System::Drawing::FontStyle>((System::Drawing::FontStyle::Bold | System::Drawing::FontStyle::Italic)),
 				System::Drawing::GraphicsUnit::Point, static_cast<System::Byte>(0)));
-			this->x2_label->Location = System::Drawing::Point(176, 101);
+			this->x2_label->Location = System::Drawing::Point(212, 63);
 			this->x2_label->Name = L"x2_label";
 			this->x2_label->Size = System::Drawing::Size(11, 13);
 			this->x2_label->TabIndex = 9;
@@ -432,7 +579,7 @@ namespace MultiLayerNeuronNetwork {
 			this->x1_label->AutoSize = true;
 			this->x1_label->Font = (gcnew System::Drawing::Font(L"Arial", 8.25F, static_cast<System::Drawing::FontStyle>((System::Drawing::FontStyle::Bold | System::Drawing::FontStyle::Italic)),
 				System::Drawing::GraphicsUnit::Point, static_cast<System::Byte>(0)));
-			this->x1_label->Location = System::Drawing::Point(42, 104);
+			this->x1_label->Location = System::Drawing::Point(137, 63);
 			this->x1_label->Name = L"x1_label";
 			this->x1_label->Size = System::Drawing::Size(11, 13);
 			this->x1_label->TabIndex = 8;
@@ -443,7 +590,7 @@ namespace MultiLayerNeuronNetwork {
 			this->label6->AutoSize = true;
 			this->label6->Font = (gcnew System::Drawing::Font(L"Sitka Small", 8.25F, static_cast<System::Drawing::FontStyle>((System::Drawing::FontStyle::Bold | System::Drawing::FontStyle::Italic)),
 				System::Drawing::GraphicsUnit::Point, static_cast<System::Byte>(0)));
-			this->label6->Location = System::Drawing::Point(6, 101);
+			this->label6->Location = System::Drawing::Point(97, 60);
 			this->label6->Name = L"label6";
 			this->label6->Size = System::Drawing::Size(30, 16);
 			this->label6->TabIndex = 7;
@@ -454,7 +601,7 @@ namespace MultiLayerNeuronNetwork {
 			this->label5->AutoSize = true;
 			this->label5->Font = (gcnew System::Drawing::Font(L"Sitka Small", 8.25F, static_cast<System::Drawing::FontStyle>((System::Drawing::FontStyle::Bold | System::Drawing::FontStyle::Italic)),
 				System::Drawing::GraphicsUnit::Point, static_cast<System::Byte>(0)));
-			this->label5->Location = System::Drawing::Point(139, 101);
+			this->label5->Location = System::Drawing::Point(175, 60);
 			this->label5->Name = L"label5";
 			this->label5->Size = System::Drawing::Size(31, 16);
 			this->label5->TabIndex = 6;
@@ -465,7 +612,7 @@ namespace MultiLayerNeuronNetwork {
 			this->label4->AutoSize = true;
 			this->label4->Font = (gcnew System::Drawing::Font(L"Sitka Small", 8.25F, static_cast<System::Drawing::FontStyle>((System::Drawing::FontStyle::Bold | System::Drawing::FontStyle::Italic)),
 				System::Drawing::GraphicsUnit::Point, static_cast<System::Byte>(0)));
-			this->label4->Location = System::Drawing::Point(6, 71);
+			this->label4->Location = System::Drawing::Point(6, 60);
 			this->label4->Name = L"label4";
 			this->label4->Size = System::Drawing::Size(85, 16);
 			this->label4->TabIndex = 5;
@@ -492,28 +639,6 @@ namespace MultiLayerNeuronNetwork {
 			this->label3->Size = System::Drawing::Size(163, 16);
 			this->label3->TabIndex = 0;
 			this->label3->Text = L"Total Number Of Samples :";
-			// 
-			// label10
-			// 
-			this->label10->AutoSize = true;
-			this->label10->Font = (gcnew System::Drawing::Font(L"Sitka Small", 8.25F, static_cast<System::Drawing::FontStyle>((System::Drawing::FontStyle::Bold | System::Drawing::FontStyle::Italic)),
-				System::Drawing::GraphicsUnit::Point, static_cast<System::Byte>(0)));
-			this->label10->Location = System::Drawing::Point(6, 163);
-			this->label10->Name = L"label10";
-			this->label10->Size = System::Drawing::Size(49, 16);
-			this->label10->TabIndex = 12;
-			this->label10->Text = L"Error :";
-			// 
-			// Error_lable
-			// 
-			this->Error_lable->AutoSize = true;
-			this->Error_lable->Font = (gcnew System::Drawing::Font(L"Arial", 8.25F, static_cast<System::Drawing::FontStyle>((System::Drawing::FontStyle::Bold | System::Drawing::FontStyle::Italic)),
-				System::Drawing::GraphicsUnit::Point, static_cast<System::Byte>(0)));
-			this->Error_lable->Location = System::Drawing::Point(61, 166);
-			this->Error_lable->Name = L"Error_lable";
-			this->Error_lable->Size = System::Drawing::Size(11, 13);
-			this->Error_lable->TabIndex = 13;
-			this->Error_lable->Text = L"-";
 			// 
 			// MyForm
 			// 
@@ -574,6 +699,7 @@ namespace MultiLayerNeuronNetwork {
 			// the input number is always equal to 2. the +1  is because we also add bias constant to our input matrix)
 			weight_array_length = total_class_number * (dimension + 1);
 			weight_array = new double[weight_array_length];
+			set_network_architecture();
 		}
 	}
 
@@ -837,6 +963,12 @@ namespace MultiLayerNeuronNetwork {
 			Coordinate_plane_PictureBox->CreateGraphics()->DrawLine(pen, pure_x, pure_y - 5, pure_x, pure_y + 5);
 
 		}
+
+	/*	double coordX = 0.0;
+		double coordY = 0.0;
+
+		Bitmap^ bgDrawingArea = gcnew Bitmap(Coordinate_plane_PictureBox->Width, Coordinate_plane_PictureBox->Height);
+		Coordinate_plane_PictureBox->Image = bgDrawingArea;*/
 	}
 };
 }
