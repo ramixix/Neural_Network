@@ -719,20 +719,61 @@ namespace MultiLayerNeuronNetwork {
 //##############################################################################################################################################################################################################
 	
 	private: System::Void stochasticGradientDescentSGDToolStripMenuItem_Click(System::Object^ sender, System::EventArgs^ e) {
+
+		/*total_points = 3;
+		points[0].x_coordinates[0] = 10;
+		points[0].x_coordinates[1] = 10;
+		points[0].class_id = 0;
+		
+		points[1].x_coordinates[0] = 20;
+		points[1].x_coordinates[1] = 15;
+		points[1].class_id = 1;
+
+		points[2].x_coordinates[0] = 30;
+		points[2].x_coordinates[1] = 20;
+		points[2].class_id = 0;*/
+
+		//points[3].x_coordinates[0] = 2;
+		//points[3].x_coordinates[1] = -11;
+		//points[3].class_id = 0;
+
+		//points[4].x_coordinates[0] = -1;
+		//points[4].x_coordinates[1] = 3;
+		//points[4].class_id = 1;
+
 		Neural_Network* my_network = (Neural_Network *)malloc(sizeof(Neural_Network));
 		create_network(my_network, dimension, number_of_hidden_layers, neurons_number_in_each_hidden_layer, total_class_number);
 		initiate_all_layers(my_network->layers, dimension, number_of_hidden_layers, neurons_number_in_each_hidden_layer, total_class_number);
 
+		/*Layer * all_layers = my_network->layers;
+		all_layers[0].weights[0] = 0.6;
+		all_layers[0].weights[1] = 0.3;
+		all_layers[0].weights[2] = 0.2;
+		all_layers[0].weights[3] = 0.5;
+		all_layers[0].weights[4] = 0.8;
+		all_layers[0].weights[5] = 0.2;
+		all_layers[0].weights[6] = 0.1;
+		all_layers[0].weights[7] = 0.9;
+		all_layers[0].weights[8] = 0.7;
+
+		all_layers[1].weights[0] = 0.6;
+		all_layers[1].weights[1] = 0.3;
+		all_layers[1].weights[2] = 0.2;
+		all_layers[1].weights[3] = 0.5;
+		all_layers[1].weights[4] = 0.8;
+		all_layers[1].weights[5] = 0.2;
+		all_layers[1].weights[6] = 0.1;
+		all_layers[1].weights[7] = 0.9;*/
 		z_score_normalization(points, total_points);
 		double norm_error = 0.0;
-		double max_error = 0.2;
-		double total_error = 0.0;
+		double max_error = 0.001;
+		double total_error;
 		int cycles = 100000;
 		int cycle_count = 0;
 
 		do {
 			total_error = 0.0;
-			for (int p; p < total_points; p++) {
+			for (int p = 0; p < total_points; p++) {
 				total_error += train(points[p], my_network, my_network->layers);
 			}
 
@@ -741,7 +782,7 @@ namespace MultiLayerNeuronNetwork {
 			Error_lable->Refresh();
 
 			cycle_count += 1;
-		} while (norm_error > 0.001 && cycles > cycle_count);
+		} while (norm_error > max_error /*&& cycles > cycle_count*/);
 
 		cycle_count_label->Text = cycle_count.ToString();
 		Coordinate_plane_PictureBox->Refresh();
@@ -766,8 +807,8 @@ namespace MultiLayerNeuronNetwork {
 			default: pen = gcnew Pen(Color::Black, 3.0f);
 			}
 
-			min_y = find_y_point(min_x, &weight_array[neuron_index * (dimension + 1)], 100);
-			max_y = find_y_point(max_x, &weight_array[neuron_index * (dimension + 1)], 100);
+			min_y = find_y_point(min_x, &my_network->layers[0].weights[neuron_index * (dimension + 1)], 50);
+			max_y = find_y_point(max_x, &my_network->layers[0].weights[neuron_index * (dimension + 1)], 50);
 			Coordinate_plane_PictureBox->CreateGraphics()->DrawLine(pen, (Coordinate_plane_PictureBox->Width / 2) + min_x, (Coordinate_plane_PictureBox->Height / 2) - min_y, (Coordinate_plane_PictureBox->Width / 2) + max_x, (Coordinate_plane_PictureBox->Height / 2) - max_y);
 
 		}

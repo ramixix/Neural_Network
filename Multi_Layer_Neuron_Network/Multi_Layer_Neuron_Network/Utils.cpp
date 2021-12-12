@@ -77,8 +77,8 @@ void z_score_normalization(Sample* points, int total_point) {
 		x2_standard_deviation += pow((points[i].x_coordinates[1] - x2_mean), 2);
 	}
 
-	x1_standard_deviation /= (total_point - 1);
-	x2_standard_deviation /= (total_point - 1);
+	x1_standard_deviation /= (total_point );
+	x2_standard_deviation /= (total_point );
 
 	x1_standard_deviation = sqrt(x1_standard_deviation);
 	x2_standard_deviation = sqrt(x2_standard_deviation);
@@ -86,7 +86,6 @@ void z_score_normalization(Sample* points, int total_point) {
 	for (int i = 0; i < total_point; i++) {
 		points[i].x_coordinates[0] = (points[i].x_coordinates[0] - x1_mean) / x1_standard_deviation;
 		points[i].x_coordinates[1] = (points[i].x_coordinates[1] - x2_mean) / x2_standard_deviation;
-
 	}
 }
 

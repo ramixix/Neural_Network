@@ -3,9 +3,8 @@ D:\Neural_Network\Neural_Network\Multi_Layer_Neuron_Network\Multi_Layer_Neuron_N
 D:\Neural_Network\Neural_Network\Multi_Layer_Neuron_Network\Multi_Layer_Neuron_Network\MyForm.h(646,57): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
 D:\Neural_Network\Neural_Network\Multi_Layer_Neuron_Network\Multi_Layer_Neuron_Network\MyForm.h(684,15): warning C4244: 'initializing': conversion from 'double' to 'int', possible loss of data
 D:\Neural_Network\Neural_Network\Multi_Layer_Neuron_Network\Multi_Layer_Neuron_Network\MyForm.h(685,15): warning C4244: 'initializing': conversion from 'double' to 'int', possible loss of data
-D:\Neural_Network\Neural_Network\Multi_Layer_Neuron_Network\Multi_Layer_Neuron_Network\MyForm.h(778,15): warning C4244: 'initializing': conversion from 'double' to 'int', possible loss of data
-D:\Neural_Network\Neural_Network\Multi_Layer_Neuron_Network\Multi_Layer_Neuron_Network\MyForm.h(779,15): warning C4244: 'initializing': conversion from 'double' to 'int', possible loss of data
+D:\Neural_Network\Neural_Network\Multi_Layer_Neuron_Network\Multi_Layer_Neuron_Network\MyForm.h(819,15): warning C4244: 'initializing': conversion from 'double' to 'int', possible loss of data
+D:\Neural_Network\Neural_Network\Multi_Layer_Neuron_Network\Multi_Layer_Neuron_Network\MyForm.h(820,15): warning C4244: 'initializing': conversion from 'double' to 'int', possible loss of data
 D:\Neural_Network\Neural_Network\Multi_Layer_Neuron_Network\Multi_Layer_Neuron_Network\MyForm.cpp(9,33): warning C4829: Possibly incorrect parameters to function main. Consider 'int main(Platform::Array<Platform::String^>^ argv)'
-D:\Neural_Network\Neural_Network\Multi_Layer_Neuron_Network\Multi_Layer_Neuron_Network\MyForm.h(735): warning C4700: uninitialized local variable 'p' used
   MyForm.obj : MSIL module encountered; incremental linking is disabled for MSIL; performing full link
   Multi_Layer_Neuron_Network.vcxproj -> D:\Neural_Network\Neural_Network\Multi_Layer_Neuron_Network\Debug\Multi_Layer_Neuron_Network.exe

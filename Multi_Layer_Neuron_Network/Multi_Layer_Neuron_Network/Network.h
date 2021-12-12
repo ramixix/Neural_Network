@@ -9,9 +9,9 @@ typedef struct Layer {
 	double* net;
 	double* output;
 	double* S; // S is a sign that i cant show it by character but basically S = (dk - ok) f`(netk)
-	double bias = 1;
-	double learning_constant = 0.1;
-	int lambda = 1;
+	double bias;
+	double learning_constant;
+	int lambda;
 }Layer;
 
 
@@ -29,3 +29,4 @@ double train(Sample point, Neural_Network *my_network, Layer *all_layers);
 double SGD_feed_forward(Sample point, Neural_Network* my_network, Layer *all_layers);
 void SGD_back_propagation(Sample point, Neural_Network* my_network, Layer* all_layers);
 double RMSE(double total_error, int total_points, int total_neurons_number);
+void reset_net_values(Layer *all_layers, int total_layers);
