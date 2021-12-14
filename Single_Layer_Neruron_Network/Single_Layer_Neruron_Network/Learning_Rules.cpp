@@ -1,20 +1,26 @@
 #include "Learning_Rules.h"
 
-// perceptron learning
+// this is made up of two parts, feed_forward and back_propagation.
+// First, feed forward part is invoked to find the required outputs and then the back propagation is called to update the weights based on the outputs.
 int perceptron_learning(Sample point, double* weight_array, int dimension, int class_number) {
 	double* net_values = new double[class_number];;
 	double* output_values = new double[class_number];;
 	double bias = 1;
 	int is_there_any_error;
 
-	perceptron_feed_forwared(point, weight_array, dimension, class_number, net_values, output_values, bias);
+	perceptron_feed_forward(point, weight_array, dimension, class_number, net_values, output_values, bias);
 	is_there_any_error = perceptron_back_propagation(point, weight_array, dimension, class_number, net_values, output_values, bias);
+
+	delete[]net_values;
+	delete[]output_values;
 	return is_there_any_error;
 }
 
 //##############################################################################################################################################################################################################
 
-void perceptron_feed_forwared(Sample point, double *weight_array, int dimension, int class_number, double *net, double *output, double bias) {
+// feed forward to find outputs in perceptron method
+// calculate the sum of the weight matrix multiplied by the input sample matrix, and then give the sum values to ‘sign’ function and calculate the output
+void perceptron_feed_forward(Sample point, double *weight_array, int dimension, int class_number, double *net, double *output, double bias) {
 	
 	// initial net 
 	for (int i = 0; i < class_number; i++) {
@@ -36,6 +42,8 @@ void perceptron_feed_forwared(Sample point, double *weight_array, int dimension,
 
 //##############################################################################################################################################################################################################
 
+// update the weights for a neuron if the calculated output is not equal to desired output (our sample label ) otherwise there will be no change in weights .
+// This function returns 1 if there is any change in weights and return 0 if there is no change in weighs.
 int perceptron_back_propagation(Sample point, double* weight_array, int dimension, int class_number, double* net, double* output, double bias) {
 	int desired_output;
 	double learning_constatn = 0.1f;
@@ -70,7 +78,8 @@ int perceptron_back_propagation(Sample point, double* weight_array, int dimensio
 }
 
 //##############################################################################################################################################################################################################
-//sgn function
+
+// Sign function returns 1 if given value is greater than 0, and -1 if the given value is less than 0 (used in perceptron method)
 double sgn(double net) {
 	return (net >= 0.0f) ? 1.0f : (-1.0f);
 }
@@ -79,15 +88,20 @@ double sgn(double net) {
 //&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&
 
 
+// Again similar to perceptron_learning rule , the delta_learning rule  also is  made up of two parts, feed_forward and back_propagation. First, 
+// feed forward part is invoked to find the required outputs and then the back propagation is called to update the weights based on the outputs.
 double delta_learning(Sample point, double* weight_array, int dimension, int class_number) {
 	double* net_values = new double[class_number];;
 	double* output_values = new double[class_number];;
-	double bias = -1;
+	double bias = 1;
 	int lambda = 1;
 	double error;
 
 	delta_feed_forwared(point, weight_array, dimension, class_number, net_values, output_values, bias, lambda);
 	error = delta_back_propagation(point, weight_array, dimension, class_number, net_values, output_values, bias, lambda);
+	
+	delete[]net_values;
+	delete[]output_values;
 	return error;
 	
 
@@ -95,6 +109,7 @@ double delta_learning(Sample point, double* weight_array, int dimension, int cla
 
 //##############################################################################################################################################################################################################
 
+// outputs are calculated by giving the sum of the weight matrix multiplied by the input sample matrix, to ‘sigmoid’ function.
 void delta_feed_forwared(Sample point, double* weight_array, int dimension, int class_number, double* net, double* output, double bias, int lambda){
 	for (int i = 0; i < class_number; i++) {
 		net[i] = 0;
@@ -114,6 +129,7 @@ void delta_feed_forwared(Sample point, double* weight_array, int dimension, int 
 
 //##############################################################################################################################################################################################################
 
+// error is calculated for each point and weights are updated immediately right after. This function returns the calculated error.
 double delta_back_propagation(Sample point, double* weight_array, int dimension, int class_number, double* net, double* output, double bias, int lambda) {
 	double desired_output;
 	double learning_constatn = 0.1f;

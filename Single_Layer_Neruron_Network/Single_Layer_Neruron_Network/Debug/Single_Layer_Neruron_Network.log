@@ -1,11 +1,11 @@
 ﻿  MyForm.cpp
-D:\Neural_Network\Neural_Network\Single_Layer_Neruron_Network\Single_Layer_Neruron_Network\MyForm.h(509,73): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
-D:\Neural_Network\Neural_Network\Single_Layer_Neruron_Network\Single_Layer_Neruron_Network\MyForm.h(509,57): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
-D:\Neural_Network\Neural_Network\Single_Layer_Neruron_Network\Single_Layer_Neruron_Network\MyForm.h(606,1): warning C4305: 'initializing': truncation from 'double' to 'float'
-D:\Neural_Network\Neural_Network\Single_Layer_Neruron_Network\Single_Layer_Neruron_Network\MyForm.h(649,15): warning C4244: 'initializing': conversion from 'double' to 'int', possible loss of data
-D:\Neural_Network\Neural_Network\Single_Layer_Neruron_Network\Single_Layer_Neruron_Network\MyForm.h(650,15): warning C4244: 'initializing': conversion from 'double' to 'int', possible loss of data
-D:\Neural_Network\Neural_Network\Single_Layer_Neruron_Network\Single_Layer_Neruron_Network\MyForm.h(680,15): warning C4244: 'initializing': conversion from 'double' to 'int', possible loss of data
-D:\Neural_Network\Neural_Network\Single_Layer_Neruron_Network\Single_Layer_Neruron_Network\MyForm.h(681,15): warning C4244: 'initializing': conversion from 'double' to 'int', possible loss of data
-D:\Neural_Network\Neural_Network\Single_Layer_Neruron_Network\Single_Layer_Neruron_Network\MyForm.cpp(9,33): warning C4829: Possibly incorrect parameters to function main. Consider 'int main(Platform::Array<Platform::String^>^ argv)'
+D:\Neural_Network\Neural_Network\Single_Layer_Neruron_Network\Single_Layer_Neruron_Network\MyForm.h(586,73): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
+D:\Neural_Network\Neural_Network\Single_Layer_Neruron_Network\Single_Layer_Neruron_Network\MyForm.h(586,57): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
+D:\Neural_Network\Neural_Network\Single_Layer_Neruron_Network\Single_Layer_Neruron_Network\MyForm.h(679,1): warning C4305: 'initializing': truncation from 'double' to 'float'
+D:\Neural_Network\Neural_Network\Single_Layer_Neruron_Network\Single_Layer_Neruron_Network\MyForm.h(733,15): warning C4244: 'initializing': conversion from 'double' to 'int', possible loss of data
+D:\Neural_Network\Neural_Network\Single_Layer_Neruron_Network\Single_Layer_Neruron_Network\MyForm.h(734,15): warning C4244: 'initializing': conversion from 'double' to 'int', possible loss of data
+D:\Neural_Network\Neural_Network\Single_Layer_Neruron_Network\Single_Layer_Neruron_Network\MyForm.h(763,15): warning C4244: 'initializing': conversion from 'double' to 'int', possible loss of data
+D:\Neural_Network\Neural_Network\Single_Layer_Neruron_Network\Single_Layer_Neruron_Network\MyForm.h(764,15): warning C4244: 'initializing': conversion from 'double' to 'int', possible loss of data
+D:\Neural_Network\Neural_Network\Single_Layer_Neruron_Network\Single_Layer_Neruron_Network\MyForm.cpp(8,33): warning C4829: Possibly incorrect parameters to function main. Consider 'int main(Platform::Array<Platform::String^>^ argv)'
   Learning_Rules.obj : MSIL module encountered; incremental linking is disabled for MSIL; performing full link
   Single_Layer_Neruron_Network.vcxproj -> D:\Neural_Network\Neural_Network\Single_Layer_Neruron_Network\Debug\Single_Layer_Neruron_Network.exe

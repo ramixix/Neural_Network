@@ -1,7 +1,6 @@
 #include "Utils.h"
 
-
-
+// check the user selection in combobox is valid
 bool check_combobox_selection(char combobox_value) {
 	char valid_values[8] = { '2', '3', '4', '5', '6', '7', '8', '9' };
 
@@ -59,7 +58,7 @@ void set_random_value_to_array(double* array, int array_length) {
 }
 
 //#####################################################################################################################################
-
+// normalized points using z score normalization method (X- Xmean) / Xstd
 void z_score_normalization(Sample* points, int total_point) {
 	double x1_mean = 0, x2_mean = 0;
 	double x1_standard_deviation = 0, x2_standard_deviation = 0;
