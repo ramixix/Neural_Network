@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<svg width="16cm" height="11cm" viewBox="232 5 200 260" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+  <g>
+    <ellipse style="fill:#7f7f7f;stroke-width:4;stroke:#000000;" cx="355" cy="45" rx="35" ry="35"/>
+    <line style="fill:none;fill-opacity:0;stroke-width:2;stroke:#000000;" x1="310.264" y1="44.9715" x2="154.371" y2="44.5144"/>
+    <polygon style="fill:#000000;stroke-width:2;stroke:#000000;" points="317.764,44.9934 307.749,49.9641 310.264,44.9715 307.779,39.9641"/>
+    <path style="fill:#000000;stroke-width:2;stroke:#000000;" d="M 154.371 44.5144 C 154.383,40.5144 158.395,36.5262 162.395,36.5379 C 166.395,36.5496 170.383,40.5613 170.371,44.5613 C 170.359,48.5613 166.348,52.5495 162.348,52.5378 C 158.348,52.5261 154.359,48.5144 154.371,44.5144z"/>
+    <line style="fill:none;fill-opacity:0;stroke-width:2;stroke:#000000;" x1="313.795" y1="62.4094" x2="154.337" y2="134.6"/>
+    <polygon style="fill:#000000;stroke-width:2;stroke:#000000;" points="320.627,59.3162 313.579,67.9955 313.795,62.4094 309.455,58.8856"/>
+    <line style="fill:none;fill-opacity:0;stroke-width:2;stroke:#000000;" x1="322.945" y1="76.1831" x2="154.302" y2="224.686"/>
+    <polygon style="fill:#000000;stroke-width:2;stroke:#000000;" points="328.574,71.2266 324.373,81.5878 322.945,76.1831 317.764,74.0828"/>
+    <ellipse style="fill:#7f7f7f;stroke-width:4;stroke:#000000;" cx="355" cy="135" rx="35" ry="35"/>
+    <line style="fill:none;fill-opacity:0;stroke-width:2;stroke:#000000;" x1="310.264" y1="134.977" x2="154.337" y2="134.6"/>
+    <polygon style="fill:#000000;stroke-width:2;stroke:#000000;" points="317.764,134.995 307.752,139.97 310.264,134.977 307.776,129.97"/>
+    <path style="fill:#000000;stroke-width:2;stroke:#000000;" d="M 154.337 134.6 C 154.346,130.6 158.356,126.61 162.356,126.62 C 166.356,126.629 170.346,130.639 170.337,134.639 C 170.327,138.639 166.317,142.629 162.317,142.619 C 158.317,142.61 154.327,138.6 154.337,134.6"/>
+    <line style="fill:none;fill-opacity:0;stroke-width:2;stroke:#000000;" x1="313.796" y1="152.413" x2="154.302" y2="224.686"/>
+    <polygon style="fill:#000000;stroke-width:2;stroke:#000000;" points="320.627,149.317 313.583,157.999 313.796,152.413 309.455,148.89"/>
+    <line style="fill:none;fill-opacity:0;stroke-width:2;stroke:#000000;" x1="313.812" y1="117.551" x2="154.371" y2="44.5144"/>
+    <polygon style="fill:#000000;stroke-width:2;stroke:#000000;" points="320.631,120.675 309.457,121.056 313.812,117.551 313.622,111.964"/>
+    <ellipse style="fill:#7f7f7f;stroke-width:4;stroke:#000000;" cx="355" cy="225" rx="35" ry="35"/>
+    <line style="fill:none;fill-opacity:0;stroke-width:2;stroke:#000000;" x1="310.264" y1="224.982" x2="154.302" y2="224.686"/>
+    <polygon style="fill:#000000;stroke-width:2;stroke:#000000;" points="317.764,224.996 307.754,229.977 310.264,224.982 307.773,219.977"/>
+    <path style="fill:#000000;stroke-width:2;stroke:#000000;" d="M 154.302 224.686 C 154.31,220.686 158.317,216.694 162.317,216.701 C 166.317,216.709 170.31,220.716 170.302,224.716 C 170.294,228.716 166.287,232.709 162.287,232.701 C 158.287,232.694 154.294,228.686 154.302,224.686z"/>
+    <line style="fill:none;fill-opacity:0;stroke-width:2;stroke:#000000;" x1="313.81" y1="207.556" x2="154.337" y2="134.6"/>
+    <polygon style="fill:#000000;stroke-width:2;stroke:#000000;" points="320.631,210.676 309.457,211.062 313.81,207.556 313.617,201.969"/>
+    <line style="fill:none;fill-opacity:0;stroke-width:2;stroke:#000000;" x1="322.963" y1="193.798" x2="154.371" y2="44.5144"/>
+    <polygon style="fill:#000000;stroke-width:2;stroke:#000000;" points="328.578,198.77 317.776,195.884 322.963,193.798 324.406,188.397"/>
+
+    <line style="fill:none;fill-opacity:0;stroke-width:2;stroke:#000000;" x1="500" y1="45" x2="390" y2="45"/>
+    <line style="fill:none;fill-opacity:0;stroke-width:2;stroke:#000000;" x1="500" y1="135" x2="390" y2="135"/>
+	<line style="fill:none;fill-opacity:0;stroke-width:2;stroke:#000000;" x1="500" y1="225" x2="390" y2="225"/>
+	<polygon style="fill:#000000;stroke-width:2;stroke:#000000;" id="top" points="508.764,44.9934 498.749,49.9641 501.264,44.9715 498.779,39.9641"/>
+	<polygon style="fill:#000000;stroke-width:2;stroke:#000000;" id="cen" points="508.764,134.995 498.752,139.97 501.264,134.977 498.776,129.97"/>
+	<polygon style="fill:#000000;stroke-width:2;stroke:#000000;" id="bot" points="508.764,224.996 498.754,229.977 501.264,224.982 498.773,219.977"/>
+    
+  </g>
+</svg>
