@@ -2,6 +2,9 @@
 This is a project that I have been coding to learn more about Artificial Neural Network (ANN). It consists of two main parts; first part, I just coded a simple Single Layer network (a neural network with only one input and one output layer) and the second part is multi-layer network (a network with hidden layers between input and output layers).
 <b>The details about each part is added to its own folder. So you can find inforamtion about single layer network at 'Single_Layer_Neruron_network' directory and multilayer network at 'Multi_Layer_Neuron_Network' directory</b>.
 
+- > [Single_Layer_Neural_Network](https://github.com/ramixix/Neural_Network/tree/main/Single_Layer_Neruron_Network)
+- > [Multi_Layer_Neural_Network](https://github.com/ramixix/Neural_Network/tree/main/Multi_Layer_Neuron_Network)
+
 In this Readme file I'm going to explain the general operation and ideas in Neural Network.
 
 ## Neural_Network
