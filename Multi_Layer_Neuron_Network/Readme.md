@@ -3,7 +3,7 @@ A multi-layer neural network contains more than one layer of artificial neurons 
 
 Having multiple layers provides NN a robust nature, provides more generalization to the structure. Having multiple layers provides network the flexibility to generalize the complex function.<b> So we can say, Neural networks (kind of) need multiple layers in order to learn more detailed and more abstractions relationships within the data and how the features interact with each other on a non-linear level.</b>
 
-![multilayer_neural_network](../readme_imgs/multilayer_neural_network.png)
+![multilayer_neural_network](./readme_imgs/multilayer_neural_network.png)
  
 ---
 
@@ -43,6 +43,6 @@ note : number of hidden layers can be between 1 and 9 and the neurons in each hi
 
 
 NOTE :
-**More complex examples will take much more time to train and produce the result. Also, for more complex examples, straight lines will not be enough to distinguish between classes, because we only see that in 2 dimension space. Coloring the background would be a good way to separate the boundary between classes, but I haven't found a way to do that yet. ** 
+<b>More complex examples will take much more time to train and produce the result. Also, for more complex examples, straight lines will not be enough to distinguish between classes, because we only see that in 2 dimension space. Coloring the background would be a good way to separate the boundary between classes, but I haven't found a way to do that yet. </b>
 
-**The network would continue to train itself and calculate error until the calculated error is less than the threshold ( which I set to 0.001 ). In some cases, you may find that the error no longer decreases, that is because the number of the neurons in layers, or number of hidden layers themselves are not enough. So users need change their given parameters and settings.**
+<b>The network would continue to train itself and calculate error until the calculated error is less than the threshold ( which I set to 0.001 ). In some cases, you may find that the error no longer decreases, that is because the number of the neurons in layers, or number of hidden layers themselves are not enough. So users need change their given parameters and settings.</B>
