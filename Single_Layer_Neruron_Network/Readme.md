@@ -16,6 +16,7 @@ I used two different learning rules in my network : <b>Perceptron Learning Rule<
 	---
 	
 - the **delta rule** is a [gradient descent](https://en.wikipedia.org/wiki/Gradient_descent "Gradient descent") learning rule for updating the weights of the inputs. The Delta Rule tries different values for the weights in a neural network, and depending on how accurate the output of the network is, it will make certain adjustments to certain weights (i.e., increase some and decrease the other). It will try to increase and decrease the weights in a way that the error of the output would go down, during training. The error function measures the difference between the generated output and the expected/desired output for every example. Note that the error is a function of our weight vector. The Delta rule searches for these weight vectors and uses them to generate the output for a given training example. Then by measuring the error, it would update the previously chosen weights to new values in a way that the output for the subsequent training examples would get closer to the expected output. So, the more the training goes on the better weights would the Delta rule find, and the error for those weights would become less and less. Until eventually, the network has converged and we say that the model has been trained.
+	
 	![delta_rule](./readme_imgs/delta_rule.png)
 	
 ---
