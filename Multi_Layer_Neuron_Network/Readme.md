@@ -11,7 +11,6 @@ I used two different methods while training network : <b>Stochastic Gradient Des
 
 Extreme version of mini-batch gradient descent with batch size equals to 1 is called Stochastic Gradient Descent. Stochastic Gradient Descent with momentum almost always works better and faster than Stochastic Gradient Descent.  Stochastic Gradient Descent with momentum is method which helps accelerate gradients vectors in the right directions, thus leading to faster converging. It is one of the most popular optimization algorithms and many state-of-the-art models are trained using it. 
 
----
 
 #  How To Use Program?
 As I said before, I used C++ forms to make an easy GUI (Graphic User Interface) for both parts of the project, this way users can easily see the output and result of network. 
